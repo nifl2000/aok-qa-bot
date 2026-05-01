@@ -3,7 +3,7 @@
 
 from contextlib import asynccontextmanager
 
-from fastapi import FastAPI, Query
+from fastapi import FastAPI, HTTPException, Query
 from pydantic import BaseModel
 
 from qa_bot.retriever import Retriever
@@ -14,6 +14,20 @@ class QueryRequest(BaseModel):
     question: str
     channel: str | None = None
     top_k: int = DEFAULT_TOP_K
+
+
+class ResultItem(BaseModel):
+    score: float
+    frage: str
+    antwort: str
+    kanal: str
+    hauptthema: str
+    subthema: str
+
+
+class QueryResponse(BaseModel):
+    query: str
+    results: list[ResultItem]
 
 
 retriever: Retriever | None = None
@@ -29,50 +43,53 @@ async def lifespan(app: FastAPI):
 app = FastAPI(title="AOK Wissensportal QA-Bot", lifespan=lifespan)
 
 
+def _format_results(query: str, results) -> QueryResponse:
+    return QueryResponse(
+        query=query,
+        results=[
+            ResultItem(
+                score=r.score,
+                frage=r.entry.frage,
+                antwort=r.entry.antwort,
+                kanal=r.entry.kanal,
+                hauptthema=r.entry.hauptthema,
+                subthema=r.entry.subthema,
+            )
+            for r in results
+        ],
+    )
+
+
+def _ensure_retriever() -> Retriever:
+    if retriever is None:
+        raise HTTPException(status_code=503, detail="Service not ready")
+    return retriever
+
+
 @app.get("/health")
-def health():
+def health() -> dict[str, str]:
     return {"status": "ok"}
 
 
-@app.get("/query")
+@app.get("/query", response_model=QueryResponse)
 def query(
     q: str = Query(..., min_length=1, description="User's question"),
     channel: str | None = Query(None, description="Filter by channel"),
     top_k: int = Query(DEFAULT_TOP_K, ge=1, le=20, description="Number of results"),
-):
-    global retriever
-    results = retriever.search(q, top_k=top_k, channel=channel)
-    return {
-        "query": q,
-        "results": [
-            {
-                "score": r.score,
-                "frage": r.entry.frage,
-                "antwort": r.entry.antwort,
-                "kanal": r.entry.kanal,
-                "hauptthema": r.entry.hauptthema,
-                "subthema": r.entry.subthema,
-            }
-            for r in results
-        ],
-    }
+) -> QueryResponse:
+    r = _ensure_retriever()
+    try:
+        results = r.search(q, top_k=top_k, channel=channel)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+    return _format_results(q, results)
 
 
-@app.post("/query")
-def query_post(request: QueryRequest):
-    global retriever
-    results = retriever.search(request.question, top_k=request.top_k, channel=request.channel)
-    return {
-        "query": request.question,
-        "results": [
-            {
-                "score": r.score,
-                "frage": r.entry.frage,
-                "antwort": r.entry.antwort,
-                "kanal": r.entry.kanal,
-                "hauptthema": r.entry.hauptthema,
-                "subthema": r.entry.subthema,
-            }
-            for r in results
-        ],
-    }
+@app.post("/query", response_model=QueryResponse)
+def query_post(request: QueryRequest) -> QueryResponse:
+    r = _ensure_retriever()
+    try:
+        results = r.search(request.question, top_k=request.top_k, channel=request.channel)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+    return _format_results(request.question, results)
