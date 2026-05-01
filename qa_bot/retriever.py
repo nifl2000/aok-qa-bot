@@ -11,6 +11,9 @@ from qa_bot.models import FAQEntry, SearchResult, MODEL_NAME, DEFAULT_DB_PATH
 class Retriever:
     """Semantic search over FAQ embeddings."""
 
+    entries: list[FAQEntry]
+    embedding_matrix: np.ndarray
+
     def __init__(self, db_path: str = DEFAULT_DB_PATH, model_name: str = MODEL_NAME):
         self.db_path = db_path
         self.model = SentenceTransformer(model_name)
@@ -18,22 +21,22 @@ class Retriever:
 
     def _load_embeddings(self) -> None:
         """Load all FAQ embeddings from SQLite into memory."""
-        db = sqlite3.connect(self.db_path)
-        cur = db.cursor()
+        with sqlite3.connect(self.db_path) as db:
+            cur = db.cursor()
 
-        cur.execute("SELECT id, hauptthema, subthema, frage, kanal, antwort FROM faqs")
-        rows = cur.fetchall()
+            cur.execute("SELECT id, hauptthema, subthema, frage, kanal, antwort FROM faqs")
+            rows = cur.fetchall()
 
-        cur.execute("SELECT faq_id, embedding FROM faq_embeddings")
-        emb_rows = {row[0]: np.frombuffer(row[1], dtype=np.float32) for row in cur.fetchall()}
+            cur.execute("SELECT faq_id, embedding FROM faq_embeddings")
+            emb_rows = {row[0]: np.frombuffer(row[1], dtype=np.float32) for row in cur.fetchall()}
 
-        db.close()
-
-        self.entries: list[FAQEntry] = []
+        self.entries = []
         embeddings = []
 
         for row in rows:
             faq_id, hauptthema, subthema, frage, kanal, antwort = row
+            if faq_id not in emb_rows:
+                continue
             self.entries.append(FAQEntry(
                 id=faq_id,
                 hauptthema=hauptthema,
@@ -44,7 +47,11 @@ class Retriever:
             ))
             embeddings.append(emb_rows[faq_id])
 
-        self.embedding_matrix: np.ndarray = np.stack(embeddings)
+        if embeddings:
+            self.embedding_matrix = np.stack(embeddings)
+        else:
+            dim = self.model.get_sentence_embedding_dimension() or 1024
+            self.embedding_matrix = np.empty((0, dim))
 
     def search(
         self,
@@ -60,7 +67,8 @@ class Retriever:
             channel: Optional channel filter (e.g. "telefonisch")
 
         Returns:
-            List of SearchResult sorted by similarity score
+            List of SearchResult sorted by similarity score.
+            Results with negative cosine similarity are excluded.
         """
         query_emb = self.model.encode(query, convert_to_numpy=True)
 
