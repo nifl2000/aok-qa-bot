@@ -7,7 +7,15 @@ import sqlite3
 import numpy as np
 from sentence_transformers import CrossEncoder, SentenceTransformer, util
 
-from qa_bot.models import Answer, FAQEntry, SearchResult, MODEL_NAME, DEFAULT_DB_PATH
+from qa_bot.models import (
+    Answer,
+    FAQEntry,
+    SearchResult,
+    MODEL_NAME,
+    DEFAULT_DB_PATH,
+    LLM_RERANK_MODEL,
+    LLM_RERANK_BASE_URL,
+)
 
 
 def _fts_escape(term: str) -> str:
@@ -31,10 +39,20 @@ _BM25_STOP_WORDS = frozenset({
 class Retriever:
     """Hybrid search over FAQs combining BM25 (FTS5) and embedding similarity."""
 
-    def __init__(self, db_path: str = DEFAULT_DB_PATH, model_name: str = MODEL_NAME):
+    def __init__(
+        self,
+        db_path: str = DEFAULT_DB_PATH,
+        model_name: str = MODEL_NAME,
+        llm_api_key: str | None = None,
+        llm_base_url: str = LLM_RERANK_BASE_URL,
+        llm_model: str = LLM_RERANK_MODEL,
+    ):
         self.db_path = db_path
         self.model = SentenceTransformer(model_name)
         self._rerank_model: CrossEncoder | None = None
+        self.llm_api_key = llm_api_key
+        self.llm_base_url = llm_base_url
+        self.llm_model = llm_model
         self._load_embeddings()
 
     def _load_embeddings(self) -> None:
@@ -189,6 +207,112 @@ class Retriever:
 
     CROSS_ENCODER_MODEL = "cross-encoder/mmarco-mMiniLMv2-L12-H384-v1"
 
+    _LLM_RERANK_PROMPT = """Du bewertest die semantische Übereinstimmung zwischen einer Nutzerfrage und FAQ-Einträgen.
+
+Aufgabe: Bewerte jeden der {n} FAQ-Einträge von 0 bis 10.
+10 = perfekte Übereinstimmung (die FAQ-Frage ist eine Paraphrase der Nutzerfrage)
+0 = keine inhaltliche Übereinstimmung
+
+Antworte NUR mit einem JSON-Objekt mit einem "scores"-Array der Länge {n}, wobei der i-te Eintrag die Bewertung des i-ten FAQ-Eintrags ist.
+Beispielantwort: {{"scores": [8, 3, 1, 0, 7, 2]}}
+
+Nutzerfrage: {query}
+
+FAQ-Einträge:
+{entries}
+"""
+
+    def _llm_rerank(
+        self,
+        query: str,
+        candidates: list[tuple[int, str, float]],
+    ) -> list[tuple[int, float]]:
+        """Rerank candidates using LLM scoring.
+
+        Sends query + candidate FAQ texts to the LLM, parses JSON scores.
+
+        Args:
+            query: User's question
+            candidates: List of (faq_id, frage_text, original_score) tuples
+
+        Returns:
+            List of (faq_id, llm_score) sorted by LLM score descending.
+        """
+        if not candidates or not self.llm_api_key:
+            return []
+
+        # Build candidate list for the prompt
+        entries_text = "\n".join(
+            f"[{cid}] {text}" for cid, text, _ in candidates
+        )
+        prompt = self._LLM_RERANK_PROMPT.format(
+            query=query, entries=entries_text, n=len(candidates)
+        )
+
+        import httpx
+
+        body = {
+            "model": self.llm_model,
+            "messages": [
+                {
+                    "role": "user",
+                    "content": prompt,
+                }
+            ],
+            "temperature": 0,
+            "max_tokens": 2000,
+        }
+
+        # Retry up to 2 times on timeout
+        for attempt in range(3):
+            try:
+                response = httpx.post(
+                    f"{self.llm_base_url}/chat/completions",
+                    headers={
+                        "Authorization": f"Bearer {self.llm_api_key}",
+                        "Content-Type": "application/json",
+                    },
+                    json=body,
+                    timeout=180,
+                )
+                break
+            except httpx.ReadTimeout:
+                if attempt == 2:
+                    raise
+                import time
+                time.sleep(2 * (attempt + 1))
+
+        response.raise_for_status()
+        data = response.json()
+        content = data["choices"][0]["message"]["content"].strip()
+
+        # Handle code block wrapping
+        if content.startswith("```"):
+            content = content.split("\n", 1)[1].rsplit("\n", 1)[0]
+            if content.startswith("json"):
+                content = content[4:]
+            content = content.strip()
+
+        result = json.loads(content)
+
+        # Handle both {"scores": [...]} and direct array formats
+        if isinstance(result, dict) and "scores" in result:
+            scores = result["scores"]
+        elif isinstance(result, dict) and "ranking" in result:
+            scores = [item["score"] for item in result["ranking"]]
+        elif isinstance(result, list):
+            scores = result
+        else:
+            raise ValueError(f"Unexpected LLM response format: {content[:200]}")
+
+        ranked = []
+        for i, (faq_id, _, _) in enumerate(candidates):
+            score = scores[i] if i < len(scores) else 0
+            ranked.append((faq_id, float(score)))
+
+        ranked.sort(key=lambda x: x[1], reverse=True)
+        return ranked
+
     def _rerank(
         self,
         query: str,
@@ -225,6 +349,8 @@ class Retriever:
         hybrid: bool = False,
         rerank: bool = False,
         rerank_top_k: int = 20,
+        llm_rerank: bool = False,
+        llm_rerank_top_k: int = 20,
     ) -> list[SearchResult]:
         """Search for FAQs matching the query.
 
@@ -234,15 +360,39 @@ class Retriever:
             channel: Optional channel filter (e.g. "telefonisch")
             topic: Optional topic filter (e.g. "Mutterschaftsgeld")
             hybrid: If True, combine BM25 + Embedding with RRF.
-                    If False (default), use embedding-only search.
-                    Embedding-only performs better on the deduplicated index.
             rerank: If True, rerank top-k embedding results with Cross-Encoder.
             rerank_top_k: Number of candidates to fetch before reranking.
+            llm_rerank: If True, rerank top-k candidates using LLM scoring.
+            llm_rerank_top_k: Number of candidates to fetch before LLM reranking.
 
         Returns:
             List of SearchResult sorted by combined score.
         """
-        if rerank:
+        if llm_rerank:
+            # Stage 1: Get candidates via embedding search
+            embed_results = self._embedding_search(query, llm_rerank_top_k, topic=topic, channel=channel)
+            candidates = []
+            for doc_id, score in embed_results:
+                entry = self._get_entry(doc_id)
+                if entry:
+                    candidates.append((doc_id, entry.frage, score))
+
+            # Stage 2: Rerank with LLM
+            reranked = self._llm_rerank(query, candidates)
+
+            # Build results
+            results = []
+            for doc_id, rerank_score in reranked[:top_k]:
+                entry = self._get_entry(doc_id)
+                if entry is None:
+                    continue
+                results.append(SearchResult(
+                    entry=entry,
+                    score=rerank_score,
+                    rerank_score=rerank_score,
+                ))
+            return results
+        elif rerank:
             # Stage 1: Get candidates via embedding search
             embed_results = self._embedding_search(query, rerank_top_k, topic=topic, channel=channel)
             candidates = []

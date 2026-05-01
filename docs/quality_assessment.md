@@ -210,12 +210,34 @@ The questions "Wann muss das Bonusheft eingereicht werden?" and "Was ist zu tun 
 
 The mmarco model fixes the "Krankenfahrten" case (NF → R3) but degrades 15 others. No off-the-shelf cross-encoder beats the embedding model for German question→question matching. For further improvement, fine-tuning on German QA pairs would be needed.
 
-### 4.4 Remaining Failures (3/50 not found)
+### 4.5 LLM Reranking (2026-05-01)
 
-| # | Paraphrase | Top-1 (false positive) |
-|---|---|---|
-| 8 | Als Student kriege ich das grad nicht hin mit den Beitraegen | ID=4470: Ich moechte meine Beitraege rueckwirkend abbuchen lassen |
-| 27 | Wenn die Uebergangspflege mal unterbrochen wird, muss ich dann nochmal neu beantragen? | ID=2275: Wie wird die Uebergangspflege verordnet? |
-| 39 | Ich hab mein Bonusheft verloren, was mach ich jetzt? | ID=2102: Was ist zu tun bei Verlust bzw. Nichterhalt des Bonushefts? |
+**kimi-k2.5 via Alibaba Coding Plan API** — Embedding top-20 candidates + LLM semantic scoring.
 
-Note: #39 IS matched correctly by embedding (score 0.9592) but the deduplicated ID changed from the old index. The FTS5 finds the correct text but the entry has a different ID in the deduplicated index.
+| Metric | Embedding-only | LLM Rerank | Change |
+|---|---|---|---|
+| **Recall@1** | 70.0% (35/50) | **92.0% (46/50)** | +22pp |
+| **Recall@3** | 88.0% (44/50) | **98.0% (49/50)** | +10pp |
+| **Recall@5** | 90.0% (45/50) | **98.0% (49/50)** | +8pp |
+| **Recall@10** | 94.0% (47/50) | **98.0% (49/50)** | +4pp |
+| **MRR** | 0.7892 | **0.9500** | +0.161 |
+| **Not found (top 10)** | 6.0% (3/50) | **2.0% (1/50)** | -4pp |
+
+**12 von 50 Queries verbessert, 0 verschlechtert.**
+
+Die wichtigsten Verbesserungen:
+
+| # | Paraphrase | Embedding | LLM | Was passiert |
+|---|---|---|---|---|
+| 2 | "Kontrolle nach einer Behandlung" | NF | R1 | LLM versteht "Nachuntersuchung" = "Kontrolle" |
+| 49 | "Krankenfahrten" | NF | R1 | LLM versteht "Krankenfahrten" = "Fahrkosten" |
+| 48 | "im Krankenhaus uebernachten" | R10 | R1 | LLM erkennt Krankenhaus-Übernachtung |
+| 17 | "Zubehoer und Verbrauchsmaterialien" | R9 | R1 | LLM matcht generischen Begriff |
+| 38 | "in anderes Krankenhaus wechseln" | R3 | R1 | LLM unterscheidet Krankenhaus vs Therapiewechsel |
+| 23 | "Bescheinigung in AOK App" | R4 | R1 | LLM versteht Mitgliedsbescheinigung-Kontext |
+
+**Warum LLM besser ist:** Der LLM-Scorer versteht semantische Äquivalenz zwischen unterschiedlichen Formulierungen (Synonyme, Paraphrasen), die Embeddings nicht erfassen. Das Embedding findet die richtigen Kandidaten in den Top-20, aber der LLM rankt sie korrekt.
+
+**Performance:** kimi-k2.5 antwortet in ~2-5s pro Query. qwen3.6-plus und MiniMax-M2.5 wurden auch getestet — deutlich langsamer (40-55s) und schlechter.
+
+**Empfehlung:** LLM Reranking mit kimi-k2.5 als Default für Production.

@@ -1,0 +1,1382 @@
+{
+  "embedding_only": {
+    "metrics": {
+      "recall_at_1": 0.7,
+      "recall_at_3": 0.88,
+      "recall_at_5": 0.9,
+      "recall_at_10": 0.94,
+      "mrr": 0.7892222222222222,
+      "not_found": 0.06
+    },
+    "results": [
+      {
+        "original_id": 913,
+        "new_id": 275,
+        "paraphrase": "Ich hab was von einem Freischaltcode gehoert, was ist das genau?",
+        "hauptthema": "Digitale Gesundheitsanwendungen",
+        "rank": 1,
+        "correct_score": 0.9370779991149902,
+        "top1": {
+          "id": 275,
+          "frage": "Was ist ein Freischaltcode?",
+          "score": 0.9370779991149902
+        }
+      },
+      {
+        "original_id": 205,
+        "new_id": 55,
+        "paraphrase": "Zahlt die Kasse eigentlich die Kontrolle nach einer Behandlung?",
+        "hauptthema": "Ambulante Behandlungen",
+        "rank": null,
+        "correct_score": null,
+        "top1": {
+          "id": 1139,
+          "frage": "Muss ich nach Ende der Maßnahme die Teilnahmebescheinigung der Reha-Einrichtung bei der Krankenkasse einreichen?",
+          "score": 0.873649001121521
+        }
+      },
+      {
+        "original_id": 2254,
+        "new_id": 647,
+        "paraphrase": "Unter welchen Umstaenden kriege ich Behandlungspflege verschrieben?",
+        "hauptthema": "Haeusliche Krankenpflege",
+        "rank": 2,
+        "correct_score": 0.8954244256019592,
+        "top1": {
+          "id": 646,
+          "frage": "Was versteht man unter Behandlungspflege?",
+          "score": 0.8954957723617554
+        }
+      },
+      {
+        "original_id": 2007,
+        "new_id": 593,
+        "paraphrase": "Ich bin schwanger, zahlt die AOK den Test auf B-Streptokokken?",
+        "hauptthema": "GESUNDESKONTO",
+        "rank": 1,
+        "correct_score": 0.9264556765556335,
+        "top1": {
+          "id": 593,
+          "frage": "Übernimmt die AOK-Sachsen-Anhalt das B-Streptokokken Screening für Schwangere?   ",
+          "score": 0.9264556765556335
+        }
+      },
+      {
+        "original_id": 1829,
+        "new_id": 548,
+        "paraphrase": "Mein Orthopaeede meint ich brauche Hyaluronsaeure-Spritzen, muss ich das selbst bezahlen oder zahlt die AOK?",
+        "hauptthema": "Frueherkennung / Vorsorge",
+        "rank": 1,
+        "correct_score": 0.9202007055282593,
+        "top1": {
+          "id": 548,
+          "frage": "Der Orthopäde hat mir Hyaluronsäure-Spritzen empfohlen. Übernehmen Sie die Kosten? Laut Orthopäden muss ich diese selbst zahlen, da es eine IGeL-Leistung ist. ",
+          "score": 0.9202007055282593
+        }
+      },
+      {
+        "original_id": 1144,
+        "new_id": 339,
+        "paraphrase": "Ich brauche meinen PIN-PUK-Brief fuer die Versichertenkarte, kann der mir zugeschickt werden wenn ich in Sachsen-Anhalt wohne?",
+        "hauptthema": "elektronische Gesundheitskarte",
+        "rank": 1,
+        "correct_score": 0.9409295320510864,
+        "top1": {
+          "id": 339,
+          "frage": "Versicherter wünscht Zusendung PIN/PUK Brief – innerhalb von Sachsen-Anhalt.",
+          "score": 0.9409295320510864
+        }
+      },
+      {
+        "original_id": 840,
+        "new_id": 248,
+        "paraphrase": "Kann ich eigentlich irgendwann im Jahr beim Bonusprogramm mitmachen oder muss das am Jahresanfang sein?",
+        "hauptthema": "Bonus-Wahltarif mit Zusatzbonus",
+        "rank": 1,
+        "correct_score": 0.8976720571517944,
+        "top1": {
+          "id": 248,
+          "frage": "Wann beginnt die Teilnahme? Kann ich auch mitten im Jahr in den AOK-Bonus-Wahltarif mit Zusatzbonus einsteigen?",
+          "score": 0.8976720571517944
+        }
+      },
+      {
+        "original_id": 4468,
+        "new_id": 1252,
+        "paraphrase": "Als Student kriege ich das grad nicht hin mit den Beitraegen, kann ich die in Raten zahlen?",
+        "hauptthema": "Studenten",
+        "rank": 1,
+        "correct_score": 0.9383590817451477,
+        "top1": {
+          "id": 1252,
+          "frage": "Ich kann meine Studenten-Beiträge nicht bezahlen. Geht eine Ratenzahlung?",
+          "score": 0.9383590817451477
+        }
+      },
+      {
+        "original_id": 713,
+        "new_id": 224,
+        "paraphrase": "Wenn ich noch rueckstaendige Beitraege bei der AOK habe, kriege ich trotzdem meinen Bonus ausgezahlt?",
+        "hauptthema": "Bonus-Wahltarif mit Zusatzbonus",
+        "rank": 3,
+        "correct_score": 0.885871946811676,
+        "top1": {
+          "id": 473,
+          "frage": "Wird meine Bonuszahlung weiter an das Finanzamt gemeldet?",
+          "score": 0.9043346643447876
+        }
+      },
+      {
+        "original_id": 4838,
+        "new_id": 1363,
+        "paraphrase": "Was muss ich denn gesetzlich bei Arzneimitteln dazuzahlen?",
+        "hauptthema": "Arzneimittel",
+        "rank": 2,
+        "correct_score": 0.9289928078651428,
+        "top1": {
+          "id": 178,
+          "frage": "Wie hoch ist meine gesetzliche Zuzahlung bei Medikamenten?",
+          "score": 0.9289928078651428
+        }
+      },
+      {
+        "original_id": 3457,
+        "new_id": 971,
+        "paraphrase": "Ich bin schwanger, ab wann gilt der Mutterschutz eigentlich und wann hoert der wieder auf?",
+        "hauptthema": "Mutterschaftsgeld",
+        "rank": 1,
+        "correct_score": 0.9311892986297607,
+        "top1": {
+          "id": 971,
+          "frage": "Wann beginnt und endet der Mutterschutz?",
+          "score": 0.9311892986297607
+        }
+      },
+      {
+        "original_id": 261,
+        "new_id": 69,
+        "paraphrase": "Unser Kind soll ins SPZ, uebernimmt die AOK die Kosten dafuer?",
+        "hauptthema": "Ambulante Behandlungen",
+        "rank": 1,
+        "correct_score": 0.8936150670051575,
+        "top1": {
+          "id": 69,
+          "frage": "Mein Kind wurde in ein Sozialpädiatrisches Zentrum (SPZ) überwiesen. Werden die Kosten von der AOK Sachsen-Anhalt übernommen?",
+          "score": 0.8936150670051575
+        }
+      },
+      {
+        "original_id": 245,
+        "new_id": 65,
+        "paraphrase": "Ich finde irgendwie keinen Therapieplatz, was kann ich denn noch tun?",
+        "hauptthema": "Ambulante Behandlungen",
+        "rank": 1,
+        "correct_score": 0.9139692783355713,
+        "top1": {
+          "id": 65,
+          "frage": "Ich bekomme keinen Termin bei einem niedergelassenen Psychotherapeuten. Welche Möglichkeiten gibt es noch?",
+          "score": 0.9139692783355713
+        }
+      },
+      {
+        "original_id": 768,
+        "new_id": 235,
+        "paraphrase": "Bis wann muss ich eigentlich mein Bonusheft abgeben?",
+        "hauptthema": "Bonus-Wahltarif mit Zusatzbonus",
+        "rank": 1,
+        "correct_score": 0.9557566046714783,
+        "top1": {
+          "id": 235,
+          "frage": "Wann muss das Bonusheft eingereicht werden?",
+          "score": 0.9557566046714783
+        }
+      },
+      {
+        "original_id": 1792,
+        "new_id": 539,
+        "paraphrase": "Wieso soll ich den Widerspruch selber an die zentrale Stelle schicken und die AOK macht das nicht?",
+        "hauptthema": "Frueherkennung / Vorsorge",
+        "rank": 1,
+        "correct_score": 0.9449245929718018,
+        "top1": {
+          "id": 539,
+          "frage": "Warum muss ich den Widerspruch an die zentrale Stelle selbst schicken?",
+          "score": 0.9449245929718018
+        }
+      },
+      {
+        "original_id": 1906,
+        "new_id": 567,
+        "paraphrase": "Kann mir mal einer erklaeren was das GESUNDESKONTO eigentlich ist?",
+        "hauptthema": "GESUNDESKONTO",
+        "rank": 1,
+        "correct_score": 0.9508446455001831,
+        "top1": {
+          "id": 567,
+          "frage": "Was ist GESUNDESKONTO?",
+          "score": 0.9508446455001831
+        }
+      },
+      {
+        "original_id": 4140,
+        "new_id": 1154,
+        "paraphrase": "Wie ist das eigentlich mit dem Zubeoehr und den Verbrauchsmaterialien bei Sauerstoffgeraeten, zahlt die Kasse das?",
+        "hauptthema": "Sauerstoffgeraete",
+        "rank": 9,
+        "correct_score": 0.8611570000648499,
+        "top1": {
+          "id": 1161,
+          "frage": "Was muss ich bei Sauerstoffgeräten zuzahlen?",
+          "score": 0.8911104202270508
+        }
+      },
+      {
+        "original_id": 4932,
+        "new_id": 1386,
+        "paraphrase": "Was lernt man denn so in dem Erste-Hilfe-Kurs fuer Kinder bei euch?",
+        "hauptthema": "Praevention",
+        "rank": 1,
+        "correct_score": 0.930650532245636,
+        "top1": {
+          "id": 1386,
+          "frage": "Welche Themen werden in Ihrem Kinder-Erste-Hilfe-Kurs behandelt?",
+          "score": 0.930650532245636
+        }
+      },
+      {
+        "original_id": 218,
+        "new_id": 58,
+        "paraphrase": "Was fuer Therapieformen werden denn eigentlich angeboten?",
+        "hauptthema": "Ambulante Behandlungen",
+        "rank": 1,
+        "correct_score": 0.9270297288894653,
+        "top1": {
+          "id": 58,
+          "frage": "Welche Therapiearten gibt es?",
+          "score": 0.9270297288894653
+        }
+      },
+      {
+        "original_id": 4598,
+        "new_id": 1288,
+        "paraphrase": "Mein alter Zahnarzt hat zugemacht und der neue will die Roentgenbilder haben, wie kriege ich die?",
+        "hauptthema": "Zahnaerztliche Leistungen",
+        "rank": null,
+        "correct_score": null,
+        "top1": {
+          "id": 1114,
+          "frage": "Mein Arzt hat keine Formulare zur Verordnung einer Reha-Maßnahme. Wo kann ich diese erhalten?",
+          "score": 0.8766512870788574
+        }
+      },
+      {
+        "original_id": 1629,
+        "new_id": 490,
+        "paraphrase": "Welche Dokumente braucht man als auslaendisch Versicherter bei der AOK?",
+        "hauptthema": "Fluechtlinge",
+        "rank": 1,
+        "correct_score": 0.9303480386734009,
+        "top1": {
+          "id": 490,
+          "frage": "Welche Unterlagen müssen für ausl. Versicherte vorliegen?",
+          "score": 0.9303480386734009
+        }
+      },
+      {
+        "original_id": 4465,
+        "new_id": 1251,
+        "paraphrase": "Ich will dass die Beitraege automatisch vom Konto eingezogen werden, wie stell ich das an?",
+        "hauptthema": "Studenten",
+        "rank": 1,
+        "correct_score": 0.8818860054016113,
+        "top1": {
+          "id": 1251,
+          "frage": "Ich möchte meine Beiträge abbuchen lassen. Was ist zu tun?",
+          "score": 0.8818860054016113
+        }
+      },
+      {
+        "original_id": 3437,
+        "new_id": 958,
+        "paraphrase": "Ich bin in der AOK App angemeldet und brauche eine Bescheinigung dass ich versichert bin.",
+        "hauptthema": "Meldemanagement",
+        "rank": 4,
+        "correct_score": 0.9045350551605225,
+        "top1": {
+          "id": 817,
+          "frage": "Eingang Bescheinigung über Erkrankung des Kindes per Meine AOK-App",
+          "score": 0.9066050052642822
+        }
+      },
+      {
+        "original_id": 1806,
+        "new_id": 542,
+        "paraphrase": "Was sind eigentlich IGEL-Leistungen und zahlt die AOK dafuer?",
+        "hauptthema": "Frueherkennung / Vorsorge",
+        "rank": 2,
+        "correct_score": 0.8986049294471741,
+        "top1": {
+          "id": 544,
+          "frage": "Ich habe vom Arzt eine Rechnung über eine Igel-Leistung bekommen. Warum muss ich diese selbst zahlen?",
+          "score": 0.9016636610031128
+        }
+      },
+      {
+        "original_id": 3680,
+        "new_id": 1034,
+        "paraphrase": "Was muss ich erfuellen damit ich einen Pflegegrad bekomme?",
+        "hauptthema": "Pflege",
+        "rank": 1,
+        "correct_score": 0.9434385299682617,
+        "top1": {
+          "id": 1034,
+          "frage": "Welche Voraussetzungen muss ich erfüllen um einen Pflegegrad zu erhalten?",
+          "score": 0.9434385299682617
+        }
+      },
+      {
+        "original_id": 4828,
+        "new_id": 1361,
+        "paraphrase": "Was fuer Trinknahrung bezahlt denn die AOK?",
+        "hauptthema": "Arzneimittel",
+        "rank": 2,
+        "correct_score": 0.9196783900260925,
+        "top1": {
+          "id": 1358,
+          "frage": "Muss ich jetzt verhungern, wenn die AOK die Trinknahrung nicht übernimmt?",
+          "score": 0.926176905632019
+        }
+      },
+      {
+        "original_id": 2279,
+        "new_id": 654,
+        "paraphrase": "Wenn die Uebergangspflege mal unterbrochen wird, muss ich dann nochmal neu beantragen?",
+        "hauptthema": "Haeusliche Krankenpflege",
+        "rank": 1,
+        "correct_score": 0.9451388120651245,
+        "top1": {
+          "id": 654,
+          "frage": "Muss bei Unterbrechung der Übergangspflege ein neuer Antrag gestellt werden?",
+          "score": 0.9451388120651245
+        }
+      },
+      {
+        "original_id": 54,
+        "new_id": 13,
+        "paraphrase": "Ich hab schon einen Bonus-Wahltarif und will jetzt den Aktivbonus dazu, geht das ueberhaupt?",
+        "hauptthema": "Aktivbonus",
+        "rank": 3,
+        "correct_score": 0.8939686417579651,
+        "top1": {
+          "id": 25,
+          "frage": "Kunde hat den Aktivbonus im Vorjahr erhalten und fragt, ob es diesen auch wieder im laufenden Kalenderjahr gibt?",
+          "score": 0.9047667980194092
+        }
+      },
+      {
+        "original_id": 1308,
+        "new_id": 401,
+        "paraphrase": "Kann ich mein E-Rezept eigentlich in jeder Apotheke einloesen?",
+        "hauptthema": "E-Rezept",
+        "rank": 1,
+        "correct_score": 0.9357553720474243,
+        "top1": {
+          "id": 401,
+          "frage": "Machen alle Apotheken beim E-Rezept mit?",
+          "score": 0.9357553720474243
+        }
+      },
+      {
+        "original_id": 3463,
+        "new_id": 973,
+        "paraphrase": "Wie stelle ich eigentlich den Antrag auf Mutterschaftsgeld und ab wann kann ich das machen?",
+        "hauptthema": "Mutterschaftsgeld",
+        "rank": 1,
+        "correct_score": 0.9565666913986206,
+        "top1": {
+          "id": 973,
+          "frage": "Wie und wann muss ich das Mutterschaftsgeld beantragen?",
+          "score": 0.9565666913986206
+        }
+      },
+      {
+        "original_id": 2788,
+        "new_id": 782,
+        "paraphrase": "Wer ist denn alles berechtigt den Kinderbonus von der AOK zu kriegen?",
+        "hauptthema": "Kinderbonus",
+        "rank": 1,
+        "correct_score": 0.9439582228660583,
+        "top1": {
+          "id": 782,
+          "frage": "Wer kann den AOK Kinderbonus erhalten?",
+          "score": 0.9439582228660583
+        }
+      },
+      {
+        "original_id": 2277,
+        "new_id": 654,
+        "paraphrase": "Wenn die Pflege zu Hause kurz pausiert, braucht man dann einen neuen Antrag?",
+        "hauptthema": "Haeusliche Krankenpflege",
+        "rank": 1,
+        "correct_score": 0.9149478673934937,
+        "top1": {
+          "id": 654,
+          "frage": "Muss bei Unterbrechung der Übergangspflege ein neuer Antrag gestellt werden?",
+          "score": 0.9149478673934937
+        }
+      },
+      {
+        "original_id": 1274,
+        "new_id": 387,
+        "paraphrase": "Fuer mein Muskelstimulationsgeraet brauch ich neue Elektroden, bezahlt die AOK die?",
+        "hauptthema": "Elektrostimulationsgeraete",
+        "rank": 1,
+        "correct_score": 0.8954724073410034,
+        "top1": {
+          "id": 387,
+          "frage": "Ich benötige neue Klebe-Elektroden für mein Elektro-/Muskelstimulationsgerät?",
+          "score": 0.8954724073410034
+        }
+      },
+      {
+        "original_id": 1764,
+        "new_id": 532,
+        "paraphrase": "Wenn man sich vor dem 15. Geburtstag freiwillig versichern will, muss man dann eine Gesundheitspruefung machen lassen?",
+        "hauptthema": "Freiwillige Versicherung",
+        "rank": 1,
+        "correct_score": 0.9103400707244873,
+        "top1": {
+          "id": 532,
+          "frage": "Verlangt die AOK eine Gesundheitsprüfung für eine freiwillige Versicherung vor Versicherungsbeginn?",
+          "score": 0.9103400707244873
+        }
+      },
+      {
+        "original_id": 2758,
+        "new_id": 774,
+        "paraphrase": "Was passiert mit dem Tarif wenn man drei Jahre lang keine gefoerderte Massnahme mehr gemacht hat?",
+        "hauptthema": "Kinderbonus",
+        "rank": 1,
+        "correct_score": 0.9237625598907471,
+        "top1": {
+          "id": 774,
+          "frage": "Wie ist die Verfahrensweise bei Schließung des Tarifs, weil 3 Jahre keine Maßnahmen eingereicht  wurden?",
+          "score": 0.9237625598907471
+        }
+      },
+      {
+        "original_id": 838,
+        "new_id": 248,
+        "paraphrase": "Ab wann kann ich beim Bonus-Wahltarif mitmachen und geht das auch wenn das Jahr schon angefangen hat?",
+        "hauptthema": "Bonus-Wahltarif mit Zusatzbonus",
+        "rank": 1,
+        "correct_score": 0.9356911182403564,
+        "top1": {
+          "id": 248,
+          "frage": "Wann beginnt die Teilnahme? Kann ich auch mitten im Jahr in den AOK-Bonus-Wahltarif mit Zusatzbonus einsteigen?",
+          "score": 0.9356911182403564
+        }
+      },
+      {
+        "original_id": 760,
+        "new_id": 234,
+        "paraphrase": "Ich hab einen Unfall gehabt ohne Schuld aber der Verursacher ist nicht versichert, was passiert dann?",
+        "hauptthema": "Bonus-Wahltarif mit Zusatzbonus",
+        "rank": 1,
+        "correct_score": 0.9029371738433838,
+        "top1": {
+          "id": 234,
+          "frage": "Was passiert wenn ich unverschuldet einen Unfall habe und die Unfallverursacher für die entstandenen Kosten aufkommen müssen? Zählt das als Leistungsinanspruchnahme die einen Selbstbehalt auslösen?",
+          "score": 0.9029371738433838
+        }
+      },
+      {
+        "original_id": 3113,
+        "new_id": 863,
+        "paraphrase": "Kann ich waehrend der Behandlung in ein anderes Krankenhaus wechseln?",
+        "hauptthema": "Krankenhaus",
+        "rank": 3,
+        "correct_score": 0.9090461134910583,
+        "top1": {
+          "id": 63,
+          "frage": "Kann ich während der Behandlung das Therapieverfahren wechseln?",
+          "score": 0.9286607503890991
+        }
+      },
+      {
+        "original_id": 793,
+        "new_id": 238,
+        "paraphrase": "Ich hab mein Bonusheft verloren, was mach ich jetzt?",
+        "hauptthema": "Bonus-Wahltarif mit Zusatzbonus",
+        "rank": 2,
+        "correct_score": 0.9591522216796875,
+        "top1": {
+          "id": 614,
+          "frage": "Was ist zu tun bei Verlust bzw. Nichterhalt des Bonushefts?",
+          "score": 0.9591522216796875
+        }
+      },
+      {
+        "original_id": 2941,
+        "new_id": 820,
+        "paraphrase": "Wenn mein Kind krank ist, kann ich die Arbeitsbescheinigung dann auch fuer meinen Partner nutzen?",
+        "hauptthema": "Kinderpflegekrankengeld",
+        "rank": 1,
+        "correct_score": 0.9032132029533386,
+        "top1": {
+          "id": 820,
+          "frage": "Kann ich die Bescheinigung meines erkrankten Kindes für meinen Ehepartner (auch AOK SAN) online hochladen?",
+          "score": 0.9032132029533386
+        }
+      },
+      {
+        "original_id": 2818,
+        "new_id": 788,
+        "paraphrase": "Ich bin umgezogen und bin beim Kinderbonus angemeldet, wie aendere ich meine Adresse?",
+        "hauptthema": "Kinderbonus",
+        "rank": 1,
+        "correct_score": 0.9344400763511658,
+        "top1": {
+          "id": 788,
+          "frage": "Wie erfolgt die Adressänderung bei Teilnehmern am Kinderbonus?",
+          "score": 0.9344400763511658
+        }
+      },
+      {
+        "original_id": 4946,
+        "new_id": 1390,
+        "paraphrase": "Wie kriege ich die Kosten fuer Sportkurse vom LSB oder DOSB erstattet?",
+        "hauptthema": "Praevention",
+        "rank": 1,
+        "correct_score": 0.9041635990142822,
+        "top1": {
+          "id": 1390,
+          "frage": "Wie werden die Kosten beim LSB (Landessportbund), dem DOSB (Deutsche Olympische Sportbund) und bei der VHS (Volkshochschule) abgerechnet?",
+          "score": 0.9041635990142822
+        }
+      },
+      {
+        "original_id": 2167,
+        "new_id": 627,
+        "paraphrase": "Was gehoert denn alles zur Vorsorge waehrend der Schwangerschaft?",
+        "hauptthema": "Gesundheitsbonus",
+        "rank": 1,
+        "correct_score": 0.8790539503097534,
+        "top1": {
+          "id": 627,
+          "frage": "Was fällt unter Mutterschaftsvorsorge?",
+          "score": 0.8790539503097534
+        }
+      },
+      {
+        "original_id": 356,
+        "new_id": 112,
+        "paraphrase": "Ich will mein SEPA-Lastschriftmandat aendern, wie geht das beim Arbeitgeberkonto?",
+        "hauptthema": "Arbeitgeberkonten",
+        "rank": 1,
+        "correct_score": 0.8894281387329102,
+        "top1": {
+          "id": 112,
+          "frage": "Änderungen SEPA Lastschriftmandat ",
+          "score": 0.8894281387329102
+        }
+      },
+      {
+        "original_id": 3764,
+        "new_id": 1059,
+        "paraphrase": "Wieso wird der Zuschlag fuer Wohngruppen abgelehnt wenn man 24-Stunden-Pflege hat oder in einer Gemeinschaft lebt?",
+        "hauptthema": "Pflege",
+        "rank": 1,
+        "correct_score": 0.954497218132019,
+        "top1": {
+          "id": 1059,
+          "frage": "Warum werden Anträge auf Wohngruppenzuschlag bei 24-hPflege und/oder Vorhandensein einer Küche im Zimmer jedes WG-Bewohners abgelehnt?",
+          "score": 0.954497218132019
+        }
+      },
+      {
+        "original_id": 4393,
+        "new_id": 1233,
+        "paraphrase": "Zahlt die AOK eigentlich was fuer eine neue Brille?",
+        "hauptthema": "Sonstige Hilfsmittel",
+        "rank": 2,
+        "correct_score": 0.8884587287902832,
+        "top1": {
+          "id": 1305,
+          "frage": "Mein Zahnarzt empfiehlt mir eine Verblendung der Zähne. Übernimmt die AOK die Kosten dafür?",
+          "score": 0.8980832099914551
+        }
+      },
+      {
+        "original_id": 1023,
+        "new_id": 307,
+        "paraphrase": "Ich bin in ein anderes Bundesland gezogen und der Arzt meint mein Bundesland auf der Karte ist falsch.",
+        "hauptthema": "elektronische Gesundheitskarte",
+        "rank": 1,
+        "correct_score": 0.9141409993171692,
+        "top1": {
+          "id": 307,
+          "frage": "Ich bin außerhalb von Sachsen-Anhalt umgezogen. Mein Arzt sagte mir, dass auf meiner Gesundheitskarte noch die alte Anschrift vermerkt ist.",
+          "score": 0.9141409993171692
+        }
+      },
+      {
+        "original_id": 3101,
+        "new_id": 860,
+        "paraphrase": "Ich soll im Krankenhaus uebernachten und das soll was kosten, uebernimmt die AOK das?",
+        "hauptthema": "Krankenhaus",
+        "rank": 10,
+        "correct_score": 0.8852285146713257,
+        "top1": {
+          "id": 1358,
+          "frage": "Muss ich jetzt verhungern, wenn die AOK die Trinknahrung nicht übernimmt?",
+          "score": 0.8964941501617432
+        }
+      },
+      {
+        "original_id": 646,
+        "new_id": 183,
+        "paraphrase": "Muss ich bei Krankenfahrten was dazuzahlen?",
+        "hauptthema": "Befreiung",
+        "rank": null,
+        "correct_score": null,
+        "top1": {
+          "id": 521,
+          "frage": "Muss ich bei Krankengeldbezug Beiträge für meine freiwillige Krankenversicherung weiterzahlen?",
+          "score": 0.9076822996139526
+        }
+      },
+      {
+        "original_id": 4523,
+        "new_id": 1269,
+        "paraphrase": "Was bedeutet eigentlich ein Widerspruch bei der AOK?",
+        "hauptthema": "Widerspruch",
+        "rank": 1,
+        "correct_score": 0.9000774621963501,
+        "top1": {
+          "id": 1269,
+          "frage": "Was ist ein Widerspruch?",
+          "score": 0.9000774621963501
+        }
+      }
+    ]
+  },
+  "llm_rerank": {
+    "metrics": {
+      "recall_at_1": 0.92,
+      "recall_at_3": 0.98,
+      "recall_at_5": 0.98,
+      "recall_at_10": 0.98,
+      "mrr": 0.95,
+      "not_found": 0.02
+    },
+    "results": [
+      {
+        "original_id": 913,
+        "new_id": 275,
+        "paraphrase": "Ich hab was von einem Freischaltcode gehoert, was ist das genau?",
+        "hauptthema": "Digitale Gesundheitsanwendungen",
+        "rank": 1,
+        "correct_score": 10.0,
+        "top1": {
+          "id": 275,
+          "frage": "Was ist ein Freischaltcode?",
+          "score": 10.0
+        },
+        "rerank_score": 10.0
+      },
+      {
+        "original_id": 205,
+        "new_id": 55,
+        "paraphrase": "Zahlt die Kasse eigentlich die Kontrolle nach einer Behandlung?",
+        "hauptthema": "Ambulante Behandlungen",
+        "rank": 1,
+        "correct_score": 10.0,
+        "top1": {
+          "id": 55,
+          "frage": "Wird die Nachuntersuchung von der AOK Sachsen-Anhalt übernommen?",
+          "score": 10.0
+        },
+        "rerank_score": 10.0
+      },
+      {
+        "original_id": 2254,
+        "new_id": 647,
+        "paraphrase": "Unter welchen Umstaenden kriege ich Behandlungspflege verschrieben?",
+        "hauptthema": "Haeusliche Krankenpflege",
+        "rank": 1,
+        "correct_score": 10.0,
+        "top1": {
+          "id": 647,
+          "frage": "Wann wird Behandlungspflege verordnet?",
+          "score": 10.0
+        },
+        "rerank_score": 10.0
+      },
+      {
+        "original_id": 2007,
+        "new_id": 593,
+        "paraphrase": "Ich bin schwanger, zahlt die AOK den Test auf B-Streptokokken?",
+        "hauptthema": "GESUNDESKONTO",
+        "rank": 1,
+        "correct_score": 10.0,
+        "top1": {
+          "id": 593,
+          "frage": "Übernimmt die AOK-Sachsen-Anhalt das B-Streptokokken Screening für Schwangere?   ",
+          "score": 10.0
+        },
+        "rerank_score": 10.0
+      },
+      {
+        "original_id": 1829,
+        "new_id": 548,
+        "paraphrase": "Mein Orthopaeede meint ich brauche Hyaluronsaeure-Spritzen, muss ich das selbst bezahlen oder zahlt die AOK?",
+        "hauptthema": "Frueherkennung / Vorsorge",
+        "rank": 1,
+        "correct_score": 10.0,
+        "top1": {
+          "id": 548,
+          "frage": "Der Orthopäde hat mir Hyaluronsäure-Spritzen empfohlen. Übernehmen Sie die Kosten? Laut Orthopäden muss ich diese selbst zahlen, da es eine IGeL-Leistung ist. ",
+          "score": 10.0
+        },
+        "rerank_score": 10.0
+      },
+      {
+        "original_id": 1144,
+        "new_id": 339,
+        "paraphrase": "Ich brauche meinen PIN-PUK-Brief fuer die Versichertenkarte, kann der mir zugeschickt werden wenn ich in Sachsen-Anhalt wohne?",
+        "hauptthema": "elektronische Gesundheitskarte",
+        "rank": 1,
+        "correct_score": 10.0,
+        "top1": {
+          "id": 339,
+          "frage": "Versicherter wünscht Zusendung PIN/PUK Brief – innerhalb von Sachsen-Anhalt.",
+          "score": 10.0
+        },
+        "rerank_score": 10.0
+      },
+      {
+        "original_id": 840,
+        "new_id": 248,
+        "paraphrase": "Kann ich eigentlich irgendwann im Jahr beim Bonusprogramm mitmachen oder muss das am Jahresanfang sein?",
+        "hauptthema": "Bonus-Wahltarif mit Zusatzbonus",
+        "rank": 1,
+        "correct_score": 10.0,
+        "top1": {
+          "id": 248,
+          "frage": "Wann beginnt die Teilnahme? Kann ich auch mitten im Jahr in den AOK-Bonus-Wahltarif mit Zusatzbonus einsteigen?",
+          "score": 10.0
+        },
+        "rerank_score": 10.0
+      },
+      {
+        "original_id": 4468,
+        "new_id": 1252,
+        "paraphrase": "Als Student kriege ich das grad nicht hin mit den Beitraegen, kann ich die in Raten zahlen?",
+        "hauptthema": "Studenten",
+        "rank": 1,
+        "correct_score": 10.0,
+        "top1": {
+          "id": 1252,
+          "frage": "Ich kann meine Studenten-Beiträge nicht bezahlen. Geht eine Ratenzahlung?",
+          "score": 10.0
+        },
+        "rerank_score": 10.0
+      },
+      {
+        "original_id": 713,
+        "new_id": 224,
+        "paraphrase": "Wenn ich noch rueckstaendige Beitraege bei der AOK habe, kriege ich trotzdem meinen Bonus ausgezahlt?",
+        "hauptthema": "Bonus-Wahltarif mit Zusatzbonus",
+        "rank": 2,
+        "correct_score": 10.0,
+        "top1": {
+          "id": 610,
+          "frage": "Erfolgt eine Bonusauszahlung, wenn Schulden bei der AOK Sachsen-Anhalt vorhanden sind?",
+          "score": 10.0
+        },
+        "rerank_score": 10.0
+      },
+      {
+        "original_id": 4838,
+        "new_id": 1363,
+        "paraphrase": "Was muss ich denn gesetzlich bei Arzneimitteln dazuzahlen?",
+        "hauptthema": "Arzneimittel",
+        "rank": 2,
+        "correct_score": 10.0,
+        "top1": {
+          "id": 178,
+          "frage": "Wie hoch ist meine gesetzliche Zuzahlung bei Medikamenten?",
+          "score": 10.0
+        },
+        "rerank_score": 10.0
+      },
+      {
+        "original_id": 3457,
+        "new_id": 971,
+        "paraphrase": "Ich bin schwanger, ab wann gilt der Mutterschutz eigentlich und wann hoert der wieder auf?",
+        "hauptthema": "Mutterschaftsgeld",
+        "rank": 1,
+        "correct_score": 10.0,
+        "top1": {
+          "id": 971,
+          "frage": "Wann beginnt und endet der Mutterschutz?",
+          "score": 10.0
+        },
+        "rerank_score": 10.0
+      },
+      {
+        "original_id": 261,
+        "new_id": 69,
+        "paraphrase": "Unser Kind soll ins SPZ, uebernimmt die AOK die Kosten dafuer?",
+        "hauptthema": "Ambulante Behandlungen",
+        "rank": 1,
+        "correct_score": 10.0,
+        "top1": {
+          "id": 69,
+          "frage": "Mein Kind wurde in ein Sozialpädiatrisches Zentrum (SPZ) überwiesen. Werden die Kosten von der AOK Sachsen-Anhalt übernommen?",
+          "score": 10.0
+        },
+        "rerank_score": 10.0
+      },
+      {
+        "original_id": 245,
+        "new_id": 65,
+        "paraphrase": "Ich finde irgendwie keinen Therapieplatz, was kann ich denn noch tun?",
+        "hauptthema": "Ambulante Behandlungen",
+        "rank": 1,
+        "correct_score": 10.0,
+        "top1": {
+          "id": 65,
+          "frage": "Ich bekomme keinen Termin bei einem niedergelassenen Psychotherapeuten. Welche Möglichkeiten gibt es noch?",
+          "score": 10.0
+        },
+        "rerank_score": 10.0
+      },
+      {
+        "original_id": 768,
+        "new_id": 235,
+        "paraphrase": "Bis wann muss ich eigentlich mein Bonusheft abgeben?",
+        "hauptthema": "Bonus-Wahltarif mit Zusatzbonus",
+        "rank": 1,
+        "correct_score": 10.0,
+        "top1": {
+          "id": 235,
+          "frage": "Wann muss das Bonusheft eingereicht werden?",
+          "score": 10.0
+        },
+        "rerank_score": 10.0
+      },
+      {
+        "original_id": 1792,
+        "new_id": 539,
+        "paraphrase": "Wieso soll ich den Widerspruch selber an die zentrale Stelle schicken und die AOK macht das nicht?",
+        "hauptthema": "Frueherkennung / Vorsorge",
+        "rank": 1,
+        "correct_score": 10.0,
+        "top1": {
+          "id": 539,
+          "frage": "Warum muss ich den Widerspruch an die zentrale Stelle selbst schicken?",
+          "score": 10.0
+        },
+        "rerank_score": 10.0
+      },
+      {
+        "original_id": 1906,
+        "new_id": 567,
+        "paraphrase": "Kann mir mal einer erklaeren was das GESUNDESKONTO eigentlich ist?",
+        "hauptthema": "GESUNDESKONTO",
+        "rank": 1,
+        "correct_score": 10.0,
+        "top1": {
+          "id": 567,
+          "frage": "Was ist GESUNDESKONTO?",
+          "score": 10.0
+        },
+        "rerank_score": 10.0
+      },
+      {
+        "original_id": 4140,
+        "new_id": 1154,
+        "paraphrase": "Wie ist das eigentlich mit dem Zubeoehr und den Verbrauchsmaterialien bei Sauerstoffgeraeten, zahlt die Kasse das?",
+        "hauptthema": "Sauerstoffgeraete",
+        "rank": 1,
+        "correct_score": 10.0,
+        "top1": {
+          "id": 1154,
+          "frage": "Was ist mit Zubehör und Verbrauchsmaterialien?",
+          "score": 10.0
+        },
+        "rerank_score": 10.0
+      },
+      {
+        "original_id": 4932,
+        "new_id": 1386,
+        "paraphrase": "Was lernt man denn so in dem Erste-Hilfe-Kurs fuer Kinder bei euch?",
+        "hauptthema": "Praevention",
+        "rank": 1,
+        "correct_score": 10.0,
+        "top1": {
+          "id": 1386,
+          "frage": "Welche Themen werden in Ihrem Kinder-Erste-Hilfe-Kurs behandelt?",
+          "score": 10.0
+        },
+        "rerank_score": 10.0
+      },
+      {
+        "original_id": 218,
+        "new_id": 58,
+        "paraphrase": "Was fuer Therapieformen werden denn eigentlich angeboten?",
+        "hauptthema": "Ambulante Behandlungen",
+        "rank": 1,
+        "correct_score": 10.0,
+        "top1": {
+          "id": 58,
+          "frage": "Welche Therapiearten gibt es?",
+          "score": 10.0
+        },
+        "rerank_score": 10.0
+      },
+      {
+        "original_id": 4598,
+        "new_id": 1288,
+        "paraphrase": "Mein alter Zahnarzt hat zugemacht und der neue will die Roentgenbilder haben, wie kriege ich die?",
+        "hauptthema": "Zahnaerztliche Leistungen",
+        "rank": null,
+        "correct_score": null,
+        "top1": {
+          "id": 1114,
+          "frage": "Mein Arzt hat keine Formulare zur Verordnung einer Reha-Maßnahme. Wo kann ich diese erhalten?",
+          "score": 0.0
+        }
+      },
+      {
+        "original_id": 1629,
+        "new_id": 490,
+        "paraphrase": "Welche Dokumente braucht man als auslaendisch Versicherter bei der AOK?",
+        "hauptthema": "Fluechtlinge",
+        "rank": 1,
+        "correct_score": 10.0,
+        "top1": {
+          "id": 490,
+          "frage": "Welche Unterlagen müssen für ausl. Versicherte vorliegen?",
+          "score": 10.0
+        },
+        "rerank_score": 10.0
+      },
+      {
+        "original_id": 4465,
+        "new_id": 1251,
+        "paraphrase": "Ich will dass die Beitraege automatisch vom Konto eingezogen werden, wie stell ich das an?",
+        "hauptthema": "Studenten",
+        "rank": 1,
+        "correct_score": 10.0,
+        "top1": {
+          "id": 1251,
+          "frage": "Ich möchte meine Beiträge abbuchen lassen. Was ist zu tun?",
+          "score": 10.0
+        },
+        "rerank_score": 10.0
+      },
+      {
+        "original_id": 3437,
+        "new_id": 958,
+        "paraphrase": "Ich bin in der AOK App angemeldet und brauche eine Bescheinigung dass ich versichert bin.",
+        "hauptthema": "Meldemanagement",
+        "rank": 1,
+        "correct_score": 10.0,
+        "top1": {
+          "id": 958,
+          "frage": "Ich bin bei der OGS / Meine AOK App registriert und benötige eine Mitglieds-bescheinigung für meinen neuen AG / für AA / für meine Unterlagen.  Können Sie mir diese per Mail an mein persönliches Postfach senden?",
+          "score": 10.0
+        },
+        "rerank_score": 10.0
+      },
+      {
+        "original_id": 1806,
+        "new_id": 542,
+        "paraphrase": "Was sind eigentlich IGEL-Leistungen und zahlt die AOK dafuer?",
+        "hauptthema": "Frueherkennung / Vorsorge",
+        "rank": 1,
+        "correct_score": 10.0,
+        "top1": {
+          "id": 542,
+          "frage": "IGEL-Leistungen",
+          "score": 10.0
+        },
+        "rerank_score": 10.0
+      },
+      {
+        "original_id": 3680,
+        "new_id": 1034,
+        "paraphrase": "Was muss ich erfuellen damit ich einen Pflegegrad bekomme?",
+        "hauptthema": "Pflege",
+        "rank": 1,
+        "correct_score": 10.0,
+        "top1": {
+          "id": 1034,
+          "frage": "Welche Voraussetzungen muss ich erfüllen um einen Pflegegrad zu erhalten?",
+          "score": 10.0
+        },
+        "rerank_score": 10.0
+      },
+      {
+        "original_id": 4828,
+        "new_id": 1361,
+        "paraphrase": "Was fuer Trinknahrung bezahlt denn die AOK?",
+        "hauptthema": "Arzneimittel",
+        "rank": 1,
+        "correct_score": 10.0,
+        "top1": {
+          "id": 1361,
+          "frage": "Welche Trinknahrung wird durch die AOK genehmigt?",
+          "score": 10.0
+        },
+        "rerank_score": 10.0
+      },
+      {
+        "original_id": 2279,
+        "new_id": 654,
+        "paraphrase": "Wenn die Uebergangspflege mal unterbrochen wird, muss ich dann nochmal neu beantragen?",
+        "hauptthema": "Haeusliche Krankenpflege",
+        "rank": 1,
+        "correct_score": 10.0,
+        "top1": {
+          "id": 654,
+          "frage": "Muss bei Unterbrechung der Übergangspflege ein neuer Antrag gestellt werden?",
+          "score": 10.0
+        },
+        "rerank_score": 10.0
+      },
+      {
+        "original_id": 54,
+        "new_id": 13,
+        "paraphrase": "Ich hab schon einen Bonus-Wahltarif und will jetzt den Aktivbonus dazu, geht das ueberhaupt?",
+        "hauptthema": "Aktivbonus",
+        "rank": 1,
+        "correct_score": 10.0,
+        "top1": {
+          "id": 13,
+          "frage": "Tarifüberschneidung Versicherter möchte AOK-Aktivbonus abschließen hat aber bereits Gesundheitsbonus, Kinderbonus oder Bonus-Wahltarif",
+          "score": 10.0
+        },
+        "rerank_score": 10.0
+      },
+      {
+        "original_id": 1308,
+        "new_id": 401,
+        "paraphrase": "Kann ich mein E-Rezept eigentlich in jeder Apotheke einloesen?",
+        "hauptthema": "E-Rezept",
+        "rank": 1,
+        "correct_score": 10.0,
+        "top1": {
+          "id": 401,
+          "frage": "Machen alle Apotheken beim E-Rezept mit?",
+          "score": 10.0
+        },
+        "rerank_score": 10.0
+      },
+      {
+        "original_id": 3463,
+        "new_id": 973,
+        "paraphrase": "Wie stelle ich eigentlich den Antrag auf Mutterschaftsgeld und ab wann kann ich das machen?",
+        "hauptthema": "Mutterschaftsgeld",
+        "rank": 1,
+        "correct_score": 10.0,
+        "top1": {
+          "id": 973,
+          "frage": "Wie und wann muss ich das Mutterschaftsgeld beantragen?",
+          "score": 10.0
+        },
+        "rerank_score": 10.0
+      },
+      {
+        "original_id": 2788,
+        "new_id": 782,
+        "paraphrase": "Wer ist denn alles berechtigt den Kinderbonus von der AOK zu kriegen?",
+        "hauptthema": "Kinderbonus",
+        "rank": 1,
+        "correct_score": 10.0,
+        "top1": {
+          "id": 782,
+          "frage": "Wer kann den AOK Kinderbonus erhalten?",
+          "score": 10.0
+        },
+        "rerank_score": 10.0
+      },
+      {
+        "original_id": 2277,
+        "new_id": 654,
+        "paraphrase": "Wenn die Pflege zu Hause kurz pausiert, braucht man dann einen neuen Antrag?",
+        "hauptthema": "Haeusliche Krankenpflege",
+        "rank": 1,
+        "correct_score": 10.0,
+        "top1": {
+          "id": 654,
+          "frage": "Muss bei Unterbrechung der Übergangspflege ein neuer Antrag gestellt werden?",
+          "score": 10.0
+        },
+        "rerank_score": 10.0
+      },
+      {
+        "original_id": 1274,
+        "new_id": 387,
+        "paraphrase": "Fuer mein Muskelstimulationsgeraet brauch ich neue Elektroden, bezahlt die AOK die?",
+        "hauptthema": "Elektrostimulationsgeraete",
+        "rank": 1,
+        "correct_score": 10.0,
+        "top1": {
+          "id": 387,
+          "frage": "Ich benötige neue Klebe-Elektroden für mein Elektro-/Muskelstimulationsgerät?",
+          "score": 10.0
+        },
+        "rerank_score": 10.0
+      },
+      {
+        "original_id": 1764,
+        "new_id": 532,
+        "paraphrase": "Wenn man sich vor dem 15. Geburtstag freiwillig versichern will, muss man dann eine Gesundheitspruefung machen lassen?",
+        "hauptthema": "Freiwillige Versicherung",
+        "rank": 1,
+        "correct_score": 10.0,
+        "top1": {
+          "id": 532,
+          "frage": "Verlangt die AOK eine Gesundheitsprüfung für eine freiwillige Versicherung vor Versicherungsbeginn?",
+          "score": 10.0
+        },
+        "rerank_score": 10.0
+      },
+      {
+        "original_id": 2758,
+        "new_id": 774,
+        "paraphrase": "Was passiert mit dem Tarif wenn man drei Jahre lang keine gefoerderte Massnahme mehr gemacht hat?",
+        "hauptthema": "Kinderbonus",
+        "rank": 1,
+        "correct_score": 10.0,
+        "top1": {
+          "id": 774,
+          "frage": "Wie ist die Verfahrensweise bei Schließung des Tarifs, weil 3 Jahre keine Maßnahmen eingereicht  wurden?",
+          "score": 10.0
+        },
+        "rerank_score": 10.0
+      },
+      {
+        "original_id": 838,
+        "new_id": 248,
+        "paraphrase": "Ab wann kann ich beim Bonus-Wahltarif mitmachen und geht das auch wenn das Jahr schon angefangen hat?",
+        "hauptthema": "Bonus-Wahltarif mit Zusatzbonus",
+        "rank": 1,
+        "correct_score": 10.0,
+        "top1": {
+          "id": 248,
+          "frage": "Wann beginnt die Teilnahme? Kann ich auch mitten im Jahr in den AOK-Bonus-Wahltarif mit Zusatzbonus einsteigen?",
+          "score": 10.0
+        },
+        "rerank_score": 10.0
+      },
+      {
+        "original_id": 760,
+        "new_id": 234,
+        "paraphrase": "Ich hab einen Unfall gehabt ohne Schuld aber der Verursacher ist nicht versichert, was passiert dann?",
+        "hauptthema": "Bonus-Wahltarif mit Zusatzbonus",
+        "rank": 1,
+        "correct_score": 9.0,
+        "top1": {
+          "id": 234,
+          "frage": "Was passiert wenn ich unverschuldet einen Unfall habe und die Unfallverursacher für die entstandenen Kosten aufkommen müssen? Zählt das als Leistungsinanspruchnahme die einen Selbstbehalt auslösen?",
+          "score": 9.0
+        },
+        "rerank_score": 9.0
+      },
+      {
+        "original_id": 3113,
+        "new_id": 863,
+        "paraphrase": "Kann ich waehrend der Behandlung in ein anderes Krankenhaus wechseln?",
+        "hauptthema": "Krankenhaus",
+        "rank": 1,
+        "correct_score": 9.0,
+        "top1": {
+          "id": 863,
+          "frage": "Ich möchte in ein anderes Krankenhaus verlegt werden.",
+          "score": 9.0
+        },
+        "rerank_score": 9.0
+      },
+      {
+        "original_id": 793,
+        "new_id": 238,
+        "paraphrase": "Ich hab mein Bonusheft verloren, was mach ich jetzt?",
+        "hauptthema": "Bonus-Wahltarif mit Zusatzbonus",
+        "rank": 2,
+        "correct_score": 10.0,
+        "top1": {
+          "id": 614,
+          "frage": "Was ist zu tun bei Verlust bzw. Nichterhalt des Bonushefts?",
+          "score": 10.0
+        },
+        "rerank_score": 10.0
+      },
+      {
+        "original_id": 2941,
+        "new_id": 820,
+        "paraphrase": "Wenn mein Kind krank ist, kann ich die Arbeitsbescheinigung dann auch fuer meinen Partner nutzen?",
+        "hauptthema": "Kinderpflegekrankengeld",
+        "rank": 1,
+        "correct_score": 9.0,
+        "top1": {
+          "id": 820,
+          "frage": "Kann ich die Bescheinigung meines erkrankten Kindes für meinen Ehepartner (auch AOK SAN) online hochladen?",
+          "score": 9.0
+        },
+        "rerank_score": 9.0
+      },
+      {
+        "original_id": 2818,
+        "new_id": 788,
+        "paraphrase": "Ich bin umgezogen und bin beim Kinderbonus angemeldet, wie aendere ich meine Adresse?",
+        "hauptthema": "Kinderbonus",
+        "rank": 1,
+        "correct_score": 10.0,
+        "top1": {
+          "id": 788,
+          "frage": "Wie erfolgt die Adressänderung bei Teilnehmern am Kinderbonus?",
+          "score": 10.0
+        },
+        "rerank_score": 10.0
+      },
+      {
+        "original_id": 4946,
+        "new_id": 1390,
+        "paraphrase": "Wie kriege ich die Kosten fuer Sportkurse vom LSB oder DOSB erstattet?",
+        "hauptthema": "Praevention",
+        "rank": 1,
+        "correct_score": 10.0,
+        "top1": {
+          "id": 1390,
+          "frage": "Wie werden die Kosten beim LSB (Landessportbund), dem DOSB (Deutsche Olympische Sportbund) und bei der VHS (Volkshochschule) abgerechnet?",
+          "score": 10.0
+        },
+        "rerank_score": 10.0
+      },
+      {
+        "original_id": 2167,
+        "new_id": 627,
+        "paraphrase": "Was gehoert denn alles zur Vorsorge waehrend der Schwangerschaft?",
+        "hauptthema": "Gesundheitsbonus",
+        "rank": 1,
+        "correct_score": 9.0,
+        "top1": {
+          "id": 627,
+          "frage": "Was fällt unter Mutterschaftsvorsorge?",
+          "score": 9.0
+        },
+        "rerank_score": 9.0
+      },
+      {
+        "original_id": 356,
+        "new_id": 112,
+        "paraphrase": "Ich will mein SEPA-Lastschriftmandat aendern, wie geht das beim Arbeitgeberkonto?",
+        "hauptthema": "Arbeitgeberkonten",
+        "rank": 1,
+        "correct_score": 9.0,
+        "top1": {
+          "id": 112,
+          "frage": "Änderungen SEPA Lastschriftmandat ",
+          "score": 9.0
+        },
+        "rerank_score": 9.0
+      },
+      {
+        "original_id": 3764,
+        "new_id": 1059,
+        "paraphrase": "Wieso wird der Zuschlag fuer Wohngruppen abgelehnt wenn man 24-Stunden-Pflege hat oder in einer Gemeinschaft lebt?",
+        "hauptthema": "Pflege",
+        "rank": 1,
+        "correct_score": 10.0,
+        "top1": {
+          "id": 1059,
+          "frage": "Warum werden Anträge auf Wohngruppenzuschlag bei 24-hPflege und/oder Vorhandensein einer Küche im Zimmer jedes WG-Bewohners abgelehnt?",
+          "score": 10.0
+        },
+        "rerank_score": 10.0
+      },
+      {
+        "original_id": 4393,
+        "new_id": 1233,
+        "paraphrase": "Zahlt die AOK eigentlich was fuer eine neue Brille?",
+        "hauptthema": "Sonstige Hilfsmittel",
+        "rank": 1,
+        "correct_score": 9.0,
+        "top1": {
+          "id": 1233,
+          "frage": "Bekomme ich von Ihnen einen Zuschuss für die Brille?",
+          "score": 9.0
+        },
+        "rerank_score": 9.0
+      },
+      {
+        "original_id": 1023,
+        "new_id": 307,
+        "paraphrase": "Ich bin in ein anderes Bundesland gezogen und der Arzt meint mein Bundesland auf der Karte ist falsch.",
+        "hauptthema": "elektronische Gesundheitskarte",
+        "rank": 1,
+        "correct_score": 9.0,
+        "top1": {
+          "id": 307,
+          "frage": "Ich bin außerhalb von Sachsen-Anhalt umgezogen. Mein Arzt sagte mir, dass auf meiner Gesundheitskarte noch die alte Anschrift vermerkt ist.",
+          "score": 9.0
+        },
+        "rerank_score": 9.0
+      },
+      {
+        "original_id": 3101,
+        "new_id": 860,
+        "paraphrase": "Ich soll im Krankenhaus uebernachten und das soll was kosten, uebernimmt die AOK das?",
+        "hauptthema": "Krankenhaus",
+        "rank": 1,
+        "correct_score": 9.0,
+        "top1": {
+          "id": 860,
+          "frage": "Der Arzt hat gesagt, dass ich über Nacht bleiben muss und dies bezahlen muss. Bekomme ich die Kosten wieder?",
+          "score": 9.0
+        },
+        "rerank_score": 9.0
+      },
+      {
+        "original_id": 646,
+        "new_id": 183,
+        "paraphrase": "Muss ich bei Krankenfahrten was dazuzahlen?",
+        "hauptthema": "Befreiung",
+        "rank": 1,
+        "correct_score": 10.0,
+        "top1": {
+          "id": 183,
+          "frage": "Zuzahlung bei Fahrkosten",
+          "score": 10.0
+        },
+        "rerank_score": 10.0
+      },
+      {
+        "original_id": 4523,
+        "new_id": 1269,
+        "paraphrase": "Was bedeutet eigentlich ein Widerspruch bei der AOK?",
+        "hauptthema": "Widerspruch",
+        "rank": 1,
+        "correct_score": 10.0,
+        "top1": {
+          "id": 1269,
+          "frage": "Was ist ein Widerspruch?",
+          "score": 10.0
+        },
+        "rerank_score": 10.0
+      }
+    ]
+  },
+  "llm_model": "kimi-k2.5",
+  "baseline_recall_1": 0.18,
+  "baseline_recall_3": 0.52,
+  "baseline_recall_5": 0.72,
+  "baseline_recall_10": 0.8,
+  "baseline_mrr": 0.374,
+  "conclusion": "LLM reranking (kimi-k2.5): 92.0% R@1"
+}

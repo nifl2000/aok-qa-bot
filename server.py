@@ -7,7 +7,9 @@ from fastapi import FastAPI, HTTPException, Query
 from pydantic import BaseModel
 
 from qa_bot.retriever import Retriever
-from qa_bot.models import DEFAULT_TOP_K
+from qa_bot.models import DEFAULT_TOP_K, LLM_RERANK_MODEL
+
+import os
 
 
 class AnswerItem(BaseModel):
@@ -37,6 +39,7 @@ class QueryRequest(BaseModel):
     channel: str | None = None
     topic: str | None = None
     rerank: bool = False
+    llm_rerank: bool = False
     top_k: int = DEFAULT_TOP_K
 
 
@@ -46,7 +49,10 @@ retriever: Retriever | None = None
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     global retriever
-    retriever = Retriever()
+    retriever = Retriever(
+        llm_api_key=os.environ.get("LLM_API_KEY"),
+        llm_model=LLM_RERANK_MODEL,
+    )
     yield
 
 
@@ -90,11 +96,12 @@ def query(
     channel: str | None = Query(None, description="Filter by channel"),
     topic: str | None = Query(None, description="Filter by topic"),
     rerank: bool = Query(False, description="Use cross-encoder reranking"),
+    llm_rerank: bool = Query(False, description="Use LLM reranking (kimi-k2.5)"),
     top_k: int = Query(DEFAULT_TOP_K, ge=1, le=20, description="Number of results"),
 ) -> QueryResponse:
     r = _ensure_retriever()
     try:
-        results = r.search(q, top_k=top_k, channel=channel, topic=topic, rerank=rerank)
+        results = r.search(q, top_k=top_k, channel=channel, topic=topic, rerank=rerank, llm_rerank=llm_rerank)
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
     return _format_results(q, results)
@@ -110,6 +117,7 @@ def query_post(request: QueryRequest) -> QueryResponse:
             channel=request.channel,
             topic=request.topic,
             rerank=request.rerank,
+            llm_rerank=request.llm_rerank,
         )
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))

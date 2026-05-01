@@ -4,6 +4,8 @@
 import argparse
 import sys
 
+import os
+
 from qa_bot.retriever import Retriever
 from qa_bot.models import DEFAULT_TOP_K
 
@@ -15,17 +17,21 @@ def main() -> None:
     parser.add_argument("--channel", type=str, default=None, help="Filter by channel")
     parser.add_argument("--topic", type=str, default=None, help="Filter by topic (hauptthema)")
     parser.add_argument("--rerank", action="store_true", help="Use cross-encoder reranking")
+    parser.add_argument("--llm-rerank", action="store_true", help="Use LLM reranking (requires LLM_API_KEY env var)")
     args = parser.parse_args()
 
     if not args.query:
         print("Usage: python cli.py \"Your question?\" [--top-k 5] [--channel telefonisch] [--topic Thema]")
         sys.exit(1)
 
-    retriever = Retriever()
+    retriever = Retriever(
+        llm_api_key=os.environ.get("LLM_API_KEY"),
+    )
     try:
         results = retriever.search(
             args.query, top_k=args.top_k, channel=args.channel, topic=args.topic,
             rerank=args.rerank,
+            llm_rerank=args.llm_rerank,
         )
     except Exception as e:
         print(f"Fehler bei der Suche: {e}")
