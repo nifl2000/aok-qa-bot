@@ -67,8 +67,9 @@ def build_index(
     model = SentenceTransformer(model_name)
 
     print(f"Encoding {len(groups)} deduplicated entries...")
-    questions = [g["frage"] for g in groups]
-    embeddings = model.encode(questions, show_progress_bar=True)
+    # Include category in embedding for better context
+    texts_to_encode = [f"{g['hauptthema']}: {g['frage']}" for g in groups]
+    embeddings = model.encode(texts_to_encode, show_progress_bar=True)
 
     print(f"Writing to {db_path}...")
     db = sqlite3.connect(db_path)

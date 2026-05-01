@@ -26,14 +26,14 @@ def _validate_startup() -> None:
     """Check prerequisites and exit with clear messages."""
     if not llm_api_key():
         print("Fehler: LLM_API_KEY nicht gesetzt.")
-        print("Bitte als Umgebungsvariable definieren: export LLM_API_KEY=sk-...")
+        print("Bitte trage den Key in die '.env' Datei ein oder nutze: export LLM_API_KEY=sk-...")
         sys.exit(1)
 
-    ensure_index()
     if not os.path.exists(DEFAULT_DB_PATH):
-        print(f"Fehler: Index-Datei '{DEFAULT_DB_PATH}' nicht gefunden.")
-        print("Baue den Index mit: python build_index.py")
-        sys.exit(1)
+        print("Initialer Start: Baue Such-Index auf (Modell-Download + Embedding-Erzeugung)...")
+        print("Dies kann beim ersten Mal 1-2 Minuten dauern.\n")
+    
+    ensure_index()
 
 
 def main() -> None:
@@ -60,9 +60,7 @@ def main() -> None:
             break
 
         try:
-            results = retriever.search(
-                query, top_k=3, llm_rerank=True, llm_rerank_top_k=20
-            )
+            results = retriever.search(query, top_k=3)
         except Exception as e:
             print(f"Fehler: {e}\n")
             continue

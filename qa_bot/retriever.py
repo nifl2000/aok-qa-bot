@@ -349,7 +349,7 @@ FAQ-Einträge:
         hybrid: bool = False,
         rerank: bool = False,
         rerank_top_k: int = 20,
-        llm_rerank: bool = False,
+        llm_rerank: bool = True,
         llm_rerank_top_k: int = 20,
     ) -> list[SearchResult]:
         """Search for FAQs matching the query.

@@ -1,6 +1,11 @@
 from __future__ import annotations
 
 import os
+from dotenv import load_dotenv
+
+# Load .env file at module level
+# We use override=False (default) to not overwrite existing env variables
+load_dotenv(dotenv_path=os.path.join(os.getcwd(), '.env'))
 
 
 # ── Defaults ──────────────────────────────────────────────────────────────
