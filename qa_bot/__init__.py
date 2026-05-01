@@ -1,5 +1,3 @@
-from qa_bot.models import FAQEntry
-from qa_bot.indexer import build_index
-from qa_bot.retriever import Retriever
+from qa_bot.models import FAQEntry, SearchResult
 
-__all__ = ["FAQEntry", "build_index", "Retriever"]
+__all__ = ["FAQEntry", "SearchResult"]
