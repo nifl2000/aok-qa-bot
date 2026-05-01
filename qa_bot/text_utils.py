@@ -4,12 +4,25 @@ import re
 
 
 def clean_answer(text: str) -> str:
-    """Clean up scraped answer text: fix hard line breaks and missing spaces."""
-    text = text.replace("\n", " ")
-    text = re.sub(r"  +", " ", text)
+    """Clean up FAQ answers into a single continuous flow of text."""
+    if not text:
+        return ""
+
+    # 1. Fix concatenated words like "smartAZuB" or "AuszahlungFremdkunde"
+    text = re.sub(r"([a-z])([A-Z])", r"\1 \2", text)
+    text = text.replace("AZu B", "AZuB")
+
+    # 2. Replace all newlines and tabs with spaces
+    text = text.replace("\n", " ").replace("\t", " ")
+    
+    # 3. Fix missing spaces after punctuation
     text = re.sub(r"([.!?])([A-ZÄÖÜ])", r"\1 \2", text)
     text = re.sub(r":([A-ZÄÖÜ])", r": \1", text)
     text = re.sub(r"(\d)\.([A-ZÄÖÜ])", r"\1. \2", text)
+
+    # 4. Collapse multiple spaces
+    text = re.sub(r"  +", " ", text)
+
     return text.strip()
 
 

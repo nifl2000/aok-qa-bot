@@ -65,6 +65,32 @@ Frage → Embedding-Suche (Top-20) → LLM-Reranking (Kimi-k2.5) → Top-3 Ergeb
 - **LLM-Reranking:** `kimi-k2.5` (Standardmäßig aktiv).
 - **Datenbank:** SQLite mit FTS5-Erweiterung.
 
+## Web-Anwendung
+
+Das Projekt enthält nun eine vollständige Web-Anwendung.
+
+### Architektur
+- **Backend:** FastAPI (Python) auf Port 8000.
+- **Frontend:** React (TypeScript) + Vite auf Port 5173.
+
+### Start der Web-App
+
+1. **Backend starten:**
+   ```bash
+   cd aok-qa-bot
+   # LLM_API_KEY muss in .env stehen
+   python backend/main.py
+   ```
+
+2. **Frontend starten:**
+   ```bash
+   cd aok-qa-bot/frontend
+   npm install
+   npm run dev
+   ```
+
+3. Öffne [http://localhost:5173](http://localhost:5173) in deinem Browser.
+
 ## Projektstruktur
 
 ```
