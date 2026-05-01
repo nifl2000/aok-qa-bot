@@ -10,17 +10,18 @@ from qa_bot.retriever import Retriever
 from qa_bot.models import DEFAULT_TOP_K
 
 
-class QueryRequest(BaseModel):
-    question: str
-    channel: str | None = None
-    top_k: int = DEFAULT_TOP_K
+class AnswerItem(BaseModel):
+    kanal: str
+    antwort: str
 
 
 class ResultItem(BaseModel):
     score: float
+    rrf_score: float = 0.0
+    bm25_score: float = 0.0
+    embed_score: float = 0.0
     frage: str
-    antwort: str
-    kanal: str
+    answers: list[AnswerItem]
     hauptthema: str
     subthema: str
 
@@ -28,6 +29,13 @@ class ResultItem(BaseModel):
 class QueryResponse(BaseModel):
     query: str
     results: list[ResultItem]
+
+
+class QueryRequest(BaseModel):
+    question: str
+    channel: str | None = None
+    topic: str | None = None
+    top_k: int = DEFAULT_TOP_K
 
 
 retriever: Retriever | None = None
@@ -49,9 +57,11 @@ def _format_results(query: str, results) -> QueryResponse:
         results=[
             ResultItem(
                 score=r.score,
+                rrf_score=r.rrf_score,
+                bm25_score=r.bm25_score,
+                embed_score=r.embed_score,
                 frage=r.entry.frage,
-                antwort=r.entry.antwort,
-                kanal=r.entry.kanal,
+                answers=[AnswerItem(kanal=a.kanal, antwort=a.antwort) for a in r.entry.answers],
                 hauptthema=r.entry.hauptthema,
                 subthema=r.entry.subthema,
             )
@@ -75,11 +85,12 @@ def health() -> dict[str, str]:
 def query(
     q: str = Query(..., min_length=1, description="User's question"),
     channel: str | None = Query(None, description="Filter by channel"),
+    topic: str | None = Query(None, description="Filter by topic"),
     top_k: int = Query(DEFAULT_TOP_K, ge=1, le=20, description="Number of results"),
 ) -> QueryResponse:
     r = _ensure_retriever()
     try:
-        results = r.search(q, top_k=top_k, channel=channel)
+        results = r.search(q, top_k=top_k, channel=channel, topic=topic)
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
     return _format_results(q, results)
@@ -89,7 +100,12 @@ def query(
 def query_post(request: QueryRequest) -> QueryResponse:
     r = _ensure_retriever()
     try:
-        results = r.search(request.question, top_k=request.top_k, channel=request.channel)
+        results = r.search(
+            request.question,
+            top_k=request.top_k,
+            channel=request.channel,
+            topic=request.topic,
+        )
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
     return _format_results(request.question, results)
