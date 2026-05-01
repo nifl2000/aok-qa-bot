@@ -204,6 +204,12 @@ The questions "Wann muss das Bonusheft eingereicht werden?" and "Was ist zu tun 
 
 **Hybrid search (BM25+RRF) was evaluated but reverted.** BM25 matches common words like "zuzahlen", "bekommen", "machen" and creates false positives that push correct answers down. Embedding-only is the default.
 
+**Cross-Encoder Reranking was evaluated.** Two models tested:
+- `cross-encoder/mmarco-mMiniLMv2-L12-H384-v1` (multilingual IR): **58% R@1** — worse than 70% embedding-only
+- `cross-encoder/stsb-distilroberta-base` (English STS): **40% R@1** — much worse
+
+The mmarco model fixes the "Krankenfahrten" case (NF → R3) but degrades 15 others. No off-the-shelf cross-encoder beats the embedding model for German question→question matching. For further improvement, fine-tuning on German QA pairs would be needed.
+
 ### 4.4 Remaining Failures (3/50 not found)
 
 | # | Paraphrase | Top-1 (false positive) |

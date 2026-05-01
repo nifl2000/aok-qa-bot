@@ -14,6 +14,7 @@ def main() -> None:
     parser.add_argument("--top-k", type=int, default=DEFAULT_TOP_K, help="Number of results")
     parser.add_argument("--channel", type=str, default=None, help="Filter by channel")
     parser.add_argument("--topic", type=str, default=None, help="Filter by topic (hauptthema)")
+    parser.add_argument("--rerank", action="store_true", help="Use cross-encoder reranking")
     args = parser.parse_args()
 
     if not args.query:
@@ -24,6 +25,7 @@ def main() -> None:
     try:
         results = retriever.search(
             args.query, top_k=args.top_k, channel=args.channel, topic=args.topic,
+            rerank=args.rerank,
         )
     except Exception as e:
         print(f"Fehler bei der Suche: {e}")
@@ -36,6 +38,8 @@ def main() -> None:
     print(f"Top-{len(results)} Treffer fuer: {args.query!r}\n")
     for i, res in enumerate(results, 1):
         scores = []
+        if res.rerank_score > 0:
+            scores.append(f"rerank={res.rerank_score:.2f}")
         if res.bm25_score > 0:
             scores.append(f"bm25={res.bm25_score:.1f}")
         if res.embed_score > 0:

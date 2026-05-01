@@ -5,7 +5,7 @@ import re
 import sqlite3
 
 import numpy as np
-from sentence_transformers import SentenceTransformer, util
+from sentence_transformers import CrossEncoder, SentenceTransformer, util
 
 from qa_bot.models import Answer, FAQEntry, SearchResult, MODEL_NAME, DEFAULT_DB_PATH
 
@@ -34,6 +34,7 @@ class Retriever:
     def __init__(self, db_path: str = DEFAULT_DB_PATH, model_name: str = MODEL_NAME):
         self.db_path = db_path
         self.model = SentenceTransformer(model_name)
+        self._rerank_model: CrossEncoder | None = None
         self._load_embeddings()
 
     def _load_embeddings(self) -> None:
@@ -186,6 +187,35 @@ class Retriever:
             return None
         return self.entries[idx]
 
+    CROSS_ENCODER_MODEL = "cross-encoder/mmarco-mMiniLMv2-L12-H384-v1"
+
+    def _rerank(
+        self,
+        query: str,
+        candidates: list[tuple[int, str, float]],
+    ) -> list[tuple[int, float]]:
+        """Rerank candidates using Cross-Encoder.
+
+        Args:
+            query: User's question
+            candidates: List of (faq_id, frage_text, original_score) tuples
+
+        Returns:
+            List of (faq_id, rerank_score) sorted by cross-encoder score descending.
+        """
+        if not candidates:
+            return []
+
+        if self._rerank_model is None:
+            self._rerank_model = CrossEncoder(self.CROSS_ENCODER_MODEL)
+
+        pairs = [(query, text) for _, text, _ in candidates]
+        scores = self._rerank_model.predict(pairs)
+
+        ranked = [(faq_id, float(score)) for (faq_id, _, _), score in zip(candidates, scores)]
+        ranked.sort(key=lambda x: x[1], reverse=True)
+        return ranked
+
     def search(
         self,
         query: str,
@@ -193,6 +223,8 @@ class Retriever:
         channel: str | None = None,
         topic: str | None = None,
         hybrid: bool = False,
+        rerank: bool = False,
+        rerank_top_k: int = 20,
     ) -> list[SearchResult]:
         """Search for FAQs matching the query.
 
@@ -204,11 +236,37 @@ class Retriever:
             hybrid: If True, combine BM25 + Embedding with RRF.
                     If False (default), use embedding-only search.
                     Embedding-only performs better on the deduplicated index.
+            rerank: If True, rerank top-k embedding results with Cross-Encoder.
+            rerank_top_k: Number of candidates to fetch before reranking.
 
         Returns:
             List of SearchResult sorted by combined score.
         """
-        if hybrid:
+        if rerank:
+            # Stage 1: Get candidates via embedding search
+            embed_results = self._embedding_search(query, rerank_top_k, topic=topic, channel=channel)
+            candidates = []
+            for doc_id, score in embed_results:
+                entry = self._get_entry(doc_id)
+                if entry:
+                    candidates.append((doc_id, entry.frage, score))
+
+            # Stage 2: Rerank with Cross-Encoder
+            reranked = self._rerank(query, candidates)
+
+            # Build results
+            results = []
+            for doc_id, rerank_score in reranked[:top_k]:
+                entry = self._get_entry(doc_id)
+                if entry is None:
+                    continue
+                results.append(SearchResult(
+                    entry=entry,
+                    score=rerank_score,
+                    rerank_score=rerank_score,
+                ))
+            return results
+        elif hybrid:
             # Run both searches in parallel
             bm25_results = self._bm25_search(query, top_k * 10, topic=topic)
             embed_results = self._embedding_search(query, top_k * 10, topic=topic, channel=channel)

@@ -40,3 +40,4 @@ class SearchResult:
     rrf_score: float = 0.0
     bm25_score: float = 0.0
     embed_score: float = 0.0
+    rerank_score: float = 0.0

@@ -20,6 +20,7 @@ class ResultItem(BaseModel):
     rrf_score: float = 0.0
     bm25_score: float = 0.0
     embed_score: float = 0.0
+    rerank_score: float = 0.0
     frage: str
     answers: list[AnswerItem]
     hauptthema: str
@@ -35,6 +36,7 @@ class QueryRequest(BaseModel):
     question: str
     channel: str | None = None
     topic: str | None = None
+    rerank: bool = False
     top_k: int = DEFAULT_TOP_K
 
 
@@ -60,6 +62,7 @@ def _format_results(query: str, results) -> QueryResponse:
                 rrf_score=r.rrf_score,
                 bm25_score=r.bm25_score,
                 embed_score=r.embed_score,
+                rerank_score=r.rerank_score,
                 frage=r.entry.frage,
                 answers=[AnswerItem(kanal=a.kanal, antwort=a.antwort) for a in r.entry.answers],
                 hauptthema=r.entry.hauptthema,
@@ -86,11 +89,12 @@ def query(
     q: str = Query(..., min_length=1, description="User's question"),
     channel: str | None = Query(None, description="Filter by channel"),
     topic: str | None = Query(None, description="Filter by topic"),
+    rerank: bool = Query(False, description="Use cross-encoder reranking"),
     top_k: int = Query(DEFAULT_TOP_K, ge=1, le=20, description="Number of results"),
 ) -> QueryResponse:
     r = _ensure_retriever()
     try:
-        results = r.search(q, top_k=top_k, channel=channel, topic=topic)
+        results = r.search(q, top_k=top_k, channel=channel, topic=topic, rerank=rerank)
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
     return _format_results(q, results)
@@ -105,6 +109,7 @@ def query_post(request: QueryRequest) -> QueryResponse:
             top_k=request.top_k,
             channel=request.channel,
             topic=request.topic,
+            rerank=request.rerank,
         )
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
