@@ -8,7 +8,7 @@ from qa_bot.retriever import Retriever
 from qa_bot.models import DEFAULT_TOP_K
 
 
-def main():
+def main() -> None:
     parser = argparse.ArgumentParser(description="AOK Wissensportal QA-Bot")
     parser.add_argument("query", nargs="?", help="Your question")
     parser.add_argument("--top-k", type=int, default=DEFAULT_TOP_K, help="Number of results")
@@ -20,13 +20,17 @@ def main():
         sys.exit(1)
 
     retriever = Retriever()
-    results = retriever.search(args.query, top_k=args.top_k, channel=args.channel)
+    try:
+        results = retriever.search(args.query, top_k=args.top_k, channel=args.channel)
+    except Exception as e:
+        print(f"Fehler bei der Suche: {e}")
+        sys.exit(1)
 
     if not results:
         print("Keine Treffer gefunden.")
         return
 
-    print(f"Top-{len(results)} Treffer fur: {args.query!r}\n")
+    print(f"Top-{len(results)} Treffer fuer: {args.query!r}\n")
     for i, res in enumerate(results, 1):
         print(f"{i}. [Score: {res.score:.3f}] {res.entry.frage}")
         print(f"   Thema: {res.entry.hauptthema} / {res.entry.subthema}")
