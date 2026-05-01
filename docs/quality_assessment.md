@@ -175,3 +175,41 @@ The questions "Wann muss das Bonusheft eingereicht werden?" and "Was ist zu tun 
 4. **Improve training data:** Fine-tune the embedding model on QA pairs specific to German health insurance domain to improve handling of paraphrases like "Krankenfahrten" vs "Fahrkosten".
 
 5. **Add topic-based pre-filtering:** If the user's question can be classified into a topic (e.g., "Krankenhaus", "Studenten"), pre-filtering by topic would reduce competition from unrelated but semantically similar entries.
+
+## 4. After Improvements (2026-05-01)
+
+### 4.1 Changes Applied
+
+1. **Deduplication**: Index reduced from 4992 → 1400 entries by grouping on (frage, hauptthema). Answers stored as JSON array with all channel variants.
+2. **Embedding-only search**: Using cosine similarity on the deduplicated index.
+3. **Hybrid BM25+Embedding (evaluated)**: BM25 via FTS5 combined with RRF. Result: **worse** than embedding-only (48% vs 70% Recall@1) because BM25 matches common words and creates false positives.
+4. **Topic pre-filtering**: FTS5-based topic detection (optional). Auto-detection is conservative — most conversational queries don't have enough distinctive keywords for reliable detection.
+
+### 4.2 Results
+
+| Metric | Before (4992 entries) | After (1400 dedup) | Improvement |
+|---|---|---|---|
+| **Recall@1** | 18.0% (9/50) | **70.0% (35/50)** | +52pp |
+| **Recall@3** | 52.0% (26/50) | **88.0% (44/50)** | +36pp |
+| **Recall@5** | 72.0% (36/50) | **90.0% (45/50)** | +18pp |
+| **Recall@10** | 80.0% (40/50) | **94.0% (47/50)** | +14pp |
+| **MRR** | 0.3740 | **0.7892** | +0.415 |
+| **Not found (top 10)** | 20.0% (10/50) | **6.0% (3/50)** | -14pp |
+
+### 4.3 What Improved
+
+**Deduplication was the key driver.** The old index had 73% duplicate entries (same question in different topics/channels). These clones filled the top-10 results, pushing the correct answer out of range.
+
+**Embedding-only works well** on the clean index. The multilingual-e5-large model handles paraphrased German questions effectively — the old poor performance was caused by duplicate saturation, not model quality.
+
+**Hybrid search (BM25+RRF) was evaluated but reverted.** BM25 matches common words like "zuzahlen", "bekommen", "machen" and creates false positives that push correct answers down. Embedding-only is the default.
+
+### 4.4 Remaining Failures (3/50 not found)
+
+| # | Paraphrase | Top-1 (false positive) |
+|---|---|---|
+| 8 | Als Student kriege ich das grad nicht hin mit den Beitraegen | ID=4470: Ich moechte meine Beitraege rueckwirkend abbuchen lassen |
+| 27 | Wenn die Uebergangspflege mal unterbrochen wird, muss ich dann nochmal neu beantragen? | ID=2275: Wie wird die Uebergangspflege verordnet? |
+| 39 | Ich hab mein Bonusheft verloren, was mach ich jetzt? | ID=2102: Was ist zu tun bei Verlust bzw. Nichterhalt des Bonushefts? |
+
+Note: #39 IS matched correctly by embedding (score 0.9592) but the deduplicated ID changed from the old index. The FTS5 finds the correct text but the entry has a different ID in the deduplicated index.

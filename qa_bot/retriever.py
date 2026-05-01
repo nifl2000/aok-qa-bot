@@ -192,7 +192,7 @@ class Retriever:
         top_k: int = 5,
         channel: str | None = None,
         topic: str | None = None,
-        hybrid: bool = True,
+        hybrid: bool = False,
     ) -> list[SearchResult]:
         """Search for FAQs matching the query.
 
@@ -202,7 +202,8 @@ class Retriever:
             channel: Optional channel filter (e.g. "telefonisch")
             topic: Optional topic filter (e.g. "Mutterschaftsgeld")
             hybrid: If True, combine BM25 + Embedding with RRF.
-                    If False, use embedding-only search.
+                    If False (default), use embedding-only search.
+                    Embedding-only performs better on the deduplicated index.
 
         Returns:
             List of SearchResult sorted by combined score.
