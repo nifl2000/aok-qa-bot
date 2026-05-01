@@ -1,11 +1,13 @@
 from __future__ import annotations
 
 import json
+import os
 import sqlite3
 from collections import OrderedDict
 
 from sentence_transformers import SentenceTransformer
 
+from qa_bot.config import DEFAULT_DB_PATH, DEFAULT_JSON_PATH
 from qa_bot.models import MODEL_NAME
 
 
@@ -131,3 +133,18 @@ def build_index(
 
     print(f"Index built: {len(groups)} deduplicated entries in {db_path}")
     return len(groups)
+
+
+def ensure_index(db_path: str = DEFAULT_DB_PATH, json_path: str = DEFAULT_JSON_PATH) -> None:
+    """Build index from JSON if it doesn't exist yet.
+
+    Silent if index already exists.
+    """
+    if os.path.exists(db_path):
+        return
+    if not os.path.exists(json_path):
+        raise FileNotFoundError(
+            f"Index file '{db_path}' not found and source data '{json_path}' missing. "
+            "Please run: python build_index.py"
+        )
+    build_index(json_path, db_path)

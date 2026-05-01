@@ -6,6 +6,7 @@ Then type questions at the prompt. Press Enter on empty line to quit.
 """
 
 import os
+import sys
 import logging
 import warnings
 
@@ -15,11 +16,29 @@ os.environ["TQDM_DISABLE"] = "1"
 logging.getLogger("huggingface_hub").setLevel(logging.CRITICAL)
 warnings.filterwarnings("ignore")
 
+from qa_bot.config import llm_api_key, DEFAULT_DB_PATH
+from qa_bot.indexer import ensure_index
 from qa_bot.retriever import Retriever
 from qa_bot.text_utils import clean_answer, format_score, truncate_at_word
 
 
+def _validate_startup() -> None:
+    """Check prerequisites and exit with clear messages."""
+    if not llm_api_key():
+        print("Fehler: LLM_API_KEY nicht gesetzt.")
+        print("Bitte als Umgebungsvariable definieren: export LLM_API_KEY=sk-...")
+        sys.exit(1)
+
+    ensure_index()
+    if not os.path.exists(DEFAULT_DB_PATH):
+        print(f"Fehler: Index-Datei '{DEFAULT_DB_PATH}' nicht gefunden.")
+        print("Baue den Index mit: python build_index.py")
+        sys.exit(1)
+
+
 def main() -> None:
+    _validate_startup()
+
     print("AOK Wissensportal QA-Bot")
     print("Lade Modell...", end=" ", flush=True)
 

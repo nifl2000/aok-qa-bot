@@ -1,9 +1,10 @@
 """Tests for qa_bot.indexer — _group_by_question function."""
 
 import json
+import os
 import pytest
 
-from qa_bot.indexer import _group_by_question
+from qa_bot.indexer import _group_by_question, ensure_index
 
 
 @pytest.fixture
@@ -120,3 +121,17 @@ def test_empty_json(tmp_path):
 
     groups = _group_by_question(str(path))
     assert groups == []
+
+
+class TestEnsureIndex:
+    def test_does_nothing_if_db_exists(self, tmp_path):
+        db_path = tmp_path / "existing.db"
+        db_path.touch()
+        # Should not raise even if json_path doesn't exist
+        ensure_index(db_path=str(db_path), json_path="nonexistent.json")
+
+    def test_raises_if_neither_db_nor_json(self, tmp_path):
+        db_path = tmp_path / "missing.db"
+        json_path = tmp_path / "missing.json"
+        with pytest.raises(FileNotFoundError, match="source data"):
+            ensure_index(db_path=str(db_path), json_path=str(json_path))
