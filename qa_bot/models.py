@@ -2,12 +2,15 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field
 
-MODEL_NAME = "intfloat/multilingual-e5-large"
-DEFAULT_TOP_K = 5
-DEFAULT_DB_PATH = "index.db"
-DEFAULT_JSON_PATH = "input/Wissensportal_Hierarchisch_KOMPLETT_bereinigt.json"
-LLM_RERANK_MODEL = "kimi-k2.5"
-LLM_RERANK_BASE_URL = "https://coding-intl.dashscope.aliyuncs.com/v1"
+from qa_bot.config import (
+    DEFAULT_DB_PATH,
+    DEFAULT_JSON_PATH,
+    DEFAULT_TOP_K,
+    LLM_RERANK_BASE_URL,
+    LLM_RERANK_MODEL,
+    MODEL_NAME,
+)
+
 
 
 @dataclass

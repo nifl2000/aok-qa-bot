@@ -3,10 +3,13 @@ from __future__ import annotations
 import json
 import re
 import sqlite3
+import time
 
+import httpx
 import numpy as np
 from sentence_transformers import CrossEncoder, SentenceTransformer, util
 
+from qa_bot.config import llm_api_key as _get_api_key
 from qa_bot.models import (
     Answer,
     FAQEntry,
@@ -50,7 +53,7 @@ class Retriever:
         self.db_path = db_path
         self.model = SentenceTransformer(model_name)
         self._rerank_model: CrossEncoder | None = None
-        self.llm_api_key = llm_api_key
+        self.llm_api_key = llm_api_key or _get_api_key()
         self.llm_base_url = llm_base_url
         self.llm_model = llm_model
         self._load_embeddings()
@@ -249,8 +252,6 @@ FAQ-Einträge:
             query=query, entries=entries_text, n=len(candidates)
         )
 
-        import httpx
-
         body = {
             "model": self.llm_model,
             "messages": [
@@ -279,7 +280,6 @@ FAQ-Einträge:
             except httpx.ReadTimeout:
                 if attempt == 2:
                     raise
-                import time
                 time.sleep(2 * (attempt + 1))
 
         response.raise_for_status()
