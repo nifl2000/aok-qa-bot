@@ -3,7 +3,6 @@ from __future__ import annotations
 import json
 import sqlite3
 
-import numpy as np
 from sentence_transformers import SentenceTransformer
 
 from qa_bot.models import MODEL_NAME
@@ -89,7 +88,7 @@ def build_index(
     for faq_id, emb in zip(ids, embeddings):
         cur.execute(
             "INSERT INTO faq_embeddings (faq_id, embedding) VALUES (?, ?)",
-            (faq_id, np.array(emb).tobytes()),
+            (faq_id, emb.tobytes()),
         )
 
     db.commit()
