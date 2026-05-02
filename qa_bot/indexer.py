@@ -21,14 +21,22 @@ def _group_by_question(path: str) -> list[dict]:
     with open(path, encoding="utf-8") as f:
         data = json.load(f)
 
-    # Use OrderedDict to preserve insertion order while grouping
+    if not isinstance(data, list):
+        raise ValueError("Expected a JSON array at top level")
+
     groups: OrderedDict[tuple[str, str], dict] = OrderedDict()
 
     for entry in data:
+        if "hauptthema" not in entry:
+            continue
         hauptthema = entry["hauptthema"]
         for sub in entry.get("subthemen", []):
+            if "name" not in sub:
+                continue
             subthema = sub["name"]
             for faq in sub.get("faqs", []):
+                if "frage" not in faq:
+                    continue
                 frage = faq["frage"]
                 key = (frage, hauptthema)
                 if key not in groups:
@@ -39,7 +47,8 @@ def _group_by_question(path: str) -> list[dict]:
                         "answers": [],
                     }
                 for antwort in faq.get("antworten", []):
-                    # Avoid exact duplicate answers within the same group
+                    if "kanal" not in antwort or "antwort" not in antwort:
+                        continue
                     answer_entry = {
                         "kanal": antwort["kanal"],
                         "antwort": antwort["antwort"],

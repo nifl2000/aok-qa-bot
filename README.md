@@ -2,14 +2,6 @@
 
 Lokaler FAQ-Bot mit Embedding-Suche und LLM-Reranking für die AOK Sachsen-Anhalt.
 
-## Features
-
-- **Context-Aware Embeddings:** Suche über 1.400 deduplizierte FAQ-Einträge im Format `{Kategorie}: {Frage}` für maximale semantische Präzision.
-- **Default LLM-Reranking:** Automatisches Reranking der Top-20 Kandidaten via `kimi-k2.5` für präziseste Ergebnisse.
-- **Antwort-Vorschau:** Bereinigte Formatierung und intelligente Kürzung der FAQ-Antworten.
-- **Einfache Konfiguration:** Unterstützung für `.env`-Dateien.
-- **Automatischer Index-Build:** Datenbank wird beim ersten Start automatisch aus den Quelldaten erzeugt.
-
 ## Schnellstart
 
 1. Repositorium klonen:
@@ -18,20 +10,28 @@ Lokaler FAQ-Bot mit Embedding-Suche und LLM-Reranking für die AOK Sachsen-Anhal
    cd aok-qa-bot
    ```
 
-2. Umgebung einrichten und Abhängigkeiten installieren:
+2. Abhängigkeiten installieren:
    ```bash
-   # Empfohlen: uv oder venv nutzen
    pip install -r requirements.txt
    ```
 
 3. Konfiguration:
-   Kopiere die `.env.example` nach `.env` und trage deinen API-Key ein:
    ```bash
    cp .env.example .env
-   # LLM_API_KEY=sk-sp-...
+   # Trage deinen LLM_API_KEY in .env ein
    ```
 
-4. Bot starten:
+4. Web-App starten:
+   ```bash
+   # Terminal 1: Backend
+   python backend/main.py
+
+   # Terminal 2: Frontend
+   cd frontend && npm install && npm run dev
+   ```
+   Öffne http://localhost:5173 im Browser.
+
+5. Alternativ CLI:
    ```bash
    python ask.py
    ```

@@ -3,3 +3,5 @@ __pycache__/
 .env
 index.db
 .venv/
+frontend/dist/
+frontend/node_modules/

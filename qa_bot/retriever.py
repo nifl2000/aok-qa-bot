@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import logging
 import json
 import re
 import sqlite3
@@ -20,6 +21,8 @@ from qa_bot.models import (
     LLM_RERANK_BASE_URL,
 )
 
+logger = logging.getLogger(__name__)
+
 
 def _fts_escape(term: str) -> str:
     """Escape a term for safe use in FTS5 MATCH query."""
@@ -37,6 +40,14 @@ _BM25_STOP_WORDS = frozenset({
     "für", "von", "mit", "wenn", "ich", "mein", "meine",
     "mir", "sich", "über", "zum", "zur",
 })
+
+
+def _sanitize_for_prompt(text: str, max_len: int = 300) -> str:
+    """Strip control characters and truncate to prevent prompt injection."""
+    text = re.sub(r"[\x00-\x08\x0b\x0c\x0e-\x1f\x7f]", "", text)
+    if len(text) > max_len:
+        text = text[:max_len].rsplit(" ", 1)[0] + "..."
+    return text
 
 
 class Retriever:
@@ -71,10 +82,13 @@ class Retriever:
         self.entries: list[FAQEntry] = []
         self.embedding_matrix: np.ndarray
         embeddings = []
+        missing = 0
 
         for row in rows:
             faq_id, hauptthema, subthema, frage, answers_json = row
             if faq_id not in emb_rows:
+                missing += 1
+                logger.warning("FAQ %d has no embedding, skipping", faq_id)
                 continue
             answers_data = json.loads(answers_json)
             answers = [Answer(kanal=a["kanal"], antwort=a["antwort"]) for a in answers_data]
@@ -86,6 +100,9 @@ class Retriever:
                 answers=answers,
             ))
             embeddings.append(emb_rows[faq_id])
+
+        if missing:
+            logger.warning("%d FAQ entries skipped (missing embeddings)", missing)
 
         if embeddings:
             self.embedding_matrix = np.stack(embeddings)
@@ -246,10 +263,10 @@ FAQ-Einträge:
 
         # Build candidate list for the prompt
         entries_text = "\n".join(
-            f"[{cid}] {text}" for cid, text, _ in candidates
+            f"[{cid}] {_sanitize_for_prompt(text)}" for cid, text, _ in candidates
         )
         prompt = self._LLM_RERANK_PROMPT.format(
-            query=query, entries=entries_text, n=len(candidates)
+            query=_sanitize_for_prompt(query), entries=entries_text, n=len(candidates)
         )
 
         body = {
